@@ -21,7 +21,7 @@ return new class extends Migration
             $table->enum('estado', ["disponible","espera","adoptado"]);
             $table->string('motivo', 300)->nullable();
             $table->dateTime('fecha_cambio')->useCurrent();
-            $table->unsignedBigInteger('id_usuario_responsable');
+            $table->unsignedBigInteger('id_usuario_responsable')->index();
             $table->foreign('id_usuario_responsable')->references('id_usuario')->on('usuario');
             $table->index(['id_mascota', 'fecha_cambio']);
         });

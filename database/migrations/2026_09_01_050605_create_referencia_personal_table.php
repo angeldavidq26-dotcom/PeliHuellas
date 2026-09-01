@@ -13,13 +13,15 @@ return new class extends Migration
     {
         Schema::disableForeignKeyConstraints();
 
-        Schema::create('usuario_rol', function (Blueprint $table) {
-            $table->bigInteger('id_usuario_rol')->primary();
+        Schema::create('referencia_personal', function (Blueprint $table) {
+            $table->id();
             $table->unsignedBigInteger('id_usuario')->index();
-            $table->foreign('id_usuario')->references('id_usuario')->on('usuario');
-            $table->unsignedTinyInteger('id_rol')->index();
-            $table->foreign('id_rol')->references('id_rol')->on('rol');
-            $table->dateTime('fecha_asignacion')->useCurrent();
+            $table->foreign('id_usuario')->references('id_usuario')->on('perfil_adoptante')
+                  ->cascadeOnDelete();
+            $table->string('nombre', 160);
+            $table->string('parentesco', 80);
+            $table->string('telefono', 25);
+            $table->string('ocupacion', 120)->nullable();
         });
 
         Schema::enableForeignKeyConstraints();
@@ -30,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('usuario_rol');
+        Schema::dropIfExists('referencia_personal');
     }
 };

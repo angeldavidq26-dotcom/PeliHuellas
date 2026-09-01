@@ -14,11 +14,10 @@ return new class extends Migration
         Schema::disableForeignKeyConstraints();
 
         Schema::create('sede_fundacion', function (Blueprint $table) {
-            $table->id();
+            // Nombrada 'id_sede' porque mascota referencia esta clave por ese nombre.
+            $table->id('id_sede');
             $table->unsignedBigInteger('id_fundacion')->index();
-            $table->bigInteger('id_usuario')->index();
-            $table->foreign('id_usuario')->references('id_usuario')->on('usuario');
-            $table->bigInteger('id_msacota');
+            $table->foreign('id_fundacion')->references('id_fundacion')->on('fundacion');
             $table->string('nombre', 120);
             $table->string('direccion', 200);
             $table->string('ciudad', 80)->index();

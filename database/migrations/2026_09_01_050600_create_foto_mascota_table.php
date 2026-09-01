@@ -15,8 +15,9 @@ return new class extends Migration
 
         Schema::create('foto_mascota', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_mascota');
-            $table->foreign('id_mascota')->references('id_mascota')->on('mascota');
+            $table->unsignedBigInteger('id_mascota')->index();
+            $table->foreign('id_mascota')->references('id_mascota')->on('mascota')
+                  ->cascadeOnDelete();
             $table->string('url', 500);
             $table->unsignedTinyInteger('orden');
             $table->boolean('es_principal');

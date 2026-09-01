@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('adopcion', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_solicitud')->unique();
+            $table->foreign('id_solicitud')->references('id_solicitud')->on('solicitud_adopcion');
             $table->date('fecha_entrega');
             $table->string('acta_url', 500)->nullable();
             $table->text('observaciones')->nullable();
