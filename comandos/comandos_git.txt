@@ -1,0 +1,47 @@
+=== COMANDOS GIT BÁSICOS (uso diario) ===
+
+git status                     -> Muestra el estado actual: archivos modificados, staged, y en qué rama estás.
+git add archivo.php            -> Añade un archivo concreto al "staging area" (lo prepara para el commit).
+git add .                      -> Añade TODOS los archivos modificados/nuevos del directorio actual.
+git commit -m "mensaje"        -> Guarda un snapshot de lo que está en staging, con un mensaje descriptivo.
+git commit -am "mensaje"       -> Añade y commitea en un paso (solo archivos YA rastreados, no nuevos).
+git push origin rama           -> Sube tus commits locales al repositorio remoto (GitHub), a la rama "rama".
+git push -u origin rama        -> Igual, pero además recuerda esa rama como destino por defecto (solo hace falta la 1ª vez).
+git pull origin rama           -> Descarga y fusiona los cambios remotos de "rama" con tu copia local.
+git fetch origin               -> Descarga los cambios remotos SIN fusionarlos todavía (para revisar antes de mezclar).
+git branch                     -> Lista las ramas locales (la actual aparece marcada con *).
+git branch -a                  -> Lista también las ramas remotas.
+git checkout -b nueva-rama     -> Crea una rama nueva y te cambia a ella inmediatamente.
+git checkout rama              -> Cambia a una rama ya existente.
+git switch rama                -> Alternativa moderna a "checkout" pensada solo para cambiar de rama.
+git merge rama                 -> Fusiona los cambios de "rama" dentro de la rama en la que estás.
+git log --oneline              -> Historial de commits, uno por línea (rápido de leer).
+git log --oneline --graph      -> Igual, pero dibuja las ramificaciones y fusiones.
+git diff                       -> Muestra línea a línea lo que cambió y NO está todavía en staging.
+git diff --staged              -> Igual, pero de lo que SÍ está en staging (lo que entrará en el próximo commit).
+git stash                      -> Guarda cambios sin commitear "en un cajón" para recuperarlos después (útil al cambiar de rama con trabajo a medias).
+git stash pop                  -> Recupera el último "cajón" guardado con git stash y lo borra de la lista.
+git clone url                  -> Descarga una copia completa de un repositorio remoto a tu máquina.
+git remote -v                  -> Muestra las URLs de los repositorios remotos configurados (origin, etc.).
+
+=== FLUJO TÍPICO PARA UNA FEATURE NUEVA ===
+
+git checkout main
+git pull origin main
+git checkout -b feature/nombre-de-la-tarea
+# ... trabajas, editas archivos ...
+git add .
+git commit -m "Añade tal cosa"
+git push -u origin feature/nombre-de-la-tarea
+# ... abres el Pull Request en GitHub ...
+
+=== ⚠️ COMANDOS GIT QUE MEJOR NO USAR SIN CUIDADO ===
+
+git push --force                -> Sobrescribe el historial remoto. Si alguien más subió commits mientras tanto, los BORRA. Nunca en ramas compartidas como main.
+git push --force-with-lease     -> Más seguro que --force (falla si hay commits remotos que tú no tienes), pero sigue siendo peligroso en ramas compartidas.
+git reset --hard                -> Descarta TODOS los cambios no comiteados sin posibilidad de recuperarlos. Usa "git stash" antes si tienes dudas.
+git reset --hard HEAD~1         -> Borra el último commit Y sus cambios de forma permanente.
+git clean -fd                   -> Elimina archivos y carpetas NO rastreados por git (no pasa por ninguna papelera, es irrecuperable).
+git rebase (sobre ramas públicas) -> Reescribe el historial de commits; si otra persona ya trabaja sobre esa misma rama, le rompe su copia local.
+git checkout . / git restore .  -> Descarta cambios locales en todos los archivos sin preguntar, perdiendo el trabajo no comiteado.
+git commit --amend (en un commit ya subido y compartido) -> Cambia un commit que otros ya descargaron; les desincroniza el historial.
