@@ -1,0 +1,40 @@
+
+
+
+PAGINA OFICIAL DE LARAVEL VERSION 12: https://laravel.com/framework/docs/12.x/installation
+
+A CONTINUACION VEREMOS LOS PASOS PARA INSTALAR LARAVEL EN NUESTRO SISTEMA OPERATIVO.
+
+1.
+
+ESTO ES EL PRIMER COMANDO Y ES GLOBAL ASI QUE NO VA DENTRO DE NINGUNA CARPETA, SOLO SE EJECUTA EN LA TERMINAL DE COMANDOS.
+
+# Run as administrator...
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://php.new/install/windows/8.4'))
+
+2.
+
+SEGUNDO COMANDO GLOBAL (INSTALACION DE COMPOSER) TAMBIEN SE EJECUTA EN LA TERMINAL DE COMANDOS. ES COMO SI FUERAN LOS CONTROLADORES
+
+composer global require laravel/installer
+
+3.
+
+EN ESTE PASO ABRIMOS LA CARPETA LARAVEL DENTRO DE NUESTRO EQUIPO Y SI NO LA TENEMOS LA CREAMOS.
+
+4.
+
+CLONAMOS EL REPOSITORIO DE LARAVEL DESDE GITHUB, PARA ESTO ABRIMOS LA TERMINAL DE COMANDOS DENTRO DE LA CARPETA LARAVEL Y EJECUTAMOS EL SIGUIENTE COMANDO:
+git clone <URL> de nuestro repositorio del proyecto en este caso el de nosotros de deberia de ver de tal manera:
+
+git clone https://github.com/angeldavidq26-dotcom/PeliHuellas.git
+
+ESTO HABRE NUESTRO REPOSITORIO Y EN ESTE CASO LA RAMA ACTUAL QUE ES (main)
+
+5.
+EN NUESTRA TERMINAL DE COMANDOS ABRIMOS NUESTRA CARPETA Y EJECUTAMOS NUESTRO PROYECTO PARA VIZUALIZAR CON LOS CAMBIOS YA REALIZADOS.
+
+
+
+
+

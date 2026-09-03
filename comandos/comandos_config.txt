@@ -1,3 +1,5 @@
+
+
 # ⚙️ Comandos de Configuración y Entorno (`.env`)
 
 Complemento a la sección 5 de [`comandosLaravel.md`](../comandosLaravel.md) (caché y optimización), centrado específicamente en configuración y variables de entorno.
@@ -25,3 +27,5 @@ Complemento a la sección 5 de [`comandosLaravel.md`](../comandosLaravel.md) (ca
 - Si `config:cache` está activo en producción y luego cambias el `.env`, la app **no notará el cambio** hasta que ejecutes `config:clear` o vuelvas a cachear.
 - `APP_DEBUG=true` jamás en producción: expone trazas de error, rutas y variables internas a cualquier visitante.
 - Tras tocar `APP_ENV` o cualquier variable sensible, revisa siempre con `php artisan about` que la app está leyendo lo que esperas.
+
+
