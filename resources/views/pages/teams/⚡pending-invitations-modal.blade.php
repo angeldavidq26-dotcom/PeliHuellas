@@ -25,7 +25,11 @@ new class extends Component {
     #[Computed]
     public function pendingInvitations(): \Illuminate\Support\Collection
     {
-        $email = Str::lower(Auth::user()->email);
+        if (! $user = Auth::user()) {
+            return collect();
+        }
+
+        $email = Str::lower($user->email);
 
         return TeamInvitation::query()
             ->with(['inviter', 'team'])
@@ -89,7 +93,9 @@ new class extends Component {
             ]);
         }
 
-        if (Str::lower($invitation->email) !== Str::lower(Auth::user()->email)) {
+        $user = Auth::user();
+
+        if (! $user || Str::lower($invitation->email) !== Str::lower($user->email)) {
             throw ValidationException::withMessages([
                 'invitation' => [__('This invitation was sent to a different email address.')],
             ]);
