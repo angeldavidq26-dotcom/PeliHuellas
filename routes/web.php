@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 // Route::view('/mascotas','mascota')->name('mascota')
 
-Route::view('/', 'index')->name('home');
+Route::view('/', 'welcome')->name('home');
 
 Route::prefix('{current_team}')
     ->middleware(['auth', 'verified', EnsureTeamMembership::class])
