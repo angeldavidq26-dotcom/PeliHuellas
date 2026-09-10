@@ -29,9 +29,6 @@
                     width:100%;
                     margin: 0px;
                     padding: 10px
-
-                    tu eres pobre tu no tienes iphone
-
                 }
             </style>
 
