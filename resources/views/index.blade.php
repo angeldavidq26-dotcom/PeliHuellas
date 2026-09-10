@@ -9,6 +9,9 @@
 </head>
 <body>
 <header>
+<a href="">PeliHuellas</a>
+<a href="">Ingresar</a>
+<a href="">Crear Cuenta</a>
 
 </header>
 

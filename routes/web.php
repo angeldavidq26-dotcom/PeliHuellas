@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 
 // Route::view('/mascotas','mascota')->name('mascota')
 
+
+
 Route::view('/', 'welcome')->name('home');
 
 Route::prefix('{current_team}')
