@@ -1,0 +1,26 @@
+                *{
+                    margin:0px;
+                    padding:0px;
+                }
+
+                .headerprincipal{
+                    background-color: beige;
+                    height:67px;
+                    width:100%;
+                    padding: 10px;
+                    display: flex;
+                    align-items: center; /* Centra todo verticalmente */
+                }
+
+                .nav-derecha {
+                    margin-left: auto; /* Empuja el menú completo a la derecha */
+                    display: flex;
+                    gap: 15px; /* Crea espacio horizontal entre Log in y Register */
+                }
+
+                .link-nav {
+                    color: rgb(0, 0, 0);
+                    text-decoration: none;
+                    font-weight: white;
+                    margin: 20px;
+                }
