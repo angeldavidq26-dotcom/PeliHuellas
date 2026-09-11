@@ -3,7 +3,13 @@
 use App\Http\Middleware\EnsureTeamMembership;
 use Illuminate\Support\Facades\Route;
 
+// Route::view('/mascotas','mascota')->name('mascota')
+
+
+
 Route::view('/', 'welcome')->name('home');
+Route::view('/panel-fundacion', 'Panel_fundacion')->name('panel.fundacion');
+
 
 Route::prefix('{current_team}')
     ->middleware(['auth', 'verified', EnsureTeamMembership::class])
