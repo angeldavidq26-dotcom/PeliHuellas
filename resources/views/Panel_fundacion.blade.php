@@ -1,178 +1,157 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link >
-    <title>Panel Fundacion </title>
+    <title>Panel fundacion</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.css" integrity="sha512-x9WwyMYBnlXMNQ6kQ/Lyzu1NqIhLQKL5Oq6xByfXuRj7s9CskyCbLv/1IjqzJmXwFXWr0ov6jBV7Qbc0hh9nHg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <style>
+        main{
+            background-color: #F3F6F4; 
+        }
+    </style>
 </head>
-<boby>
-
-<!-- ==========================================
-     BARRA LATERAL (SIDEBAR)
-     ========================================== -->
-<aside class="sidebar">
-    <!-- Encabezado del Menú (Logo y Nombre) -->
-    <div class="sidebar-header">
-        <div class="logo-icon">🏠</div> <!-- SVG en la vida real -->
-        <div class="brand-info">
-            <h2>Huellas Felices</h2>
-            <span>Fundación</span>
-        </div>
+<body>
+    <div class="logo">
+        <i class="fa-solid fa-house"></i>
+        <h2>Huellas felices</h2>
+        <h3>fundacion</h3>
     </div>
-
-    <!-- Navegación -->
-    <nav class="sidebar-nav">
-        <ul>
-            <li class="active">
-                <a href="#">🏠 Panel</a>
-            </li>
-            <li>
-                <a href="#">🐾 Mis animales</a>
-                <span class="badge">1</span>
-            </li>
-            <li>
-                <a href="#">📄 Solicitudes</a>
-                <span class="badge">5</span>
-            </li>
-            <li><a href="#">➕ Publicar animal</a></li>
-            <li><a href="#">✅ Verificación</a></li>
-            <li><a href="#">📍 Sedes</a></li>
-            <li><a href="#">⚙️ Configuración</a></li>
-        </ul>
-    </nav>
-</aside>
-
-
-<!-- ==========================================
-     CONTENIDO PRINCIPAL
-     ========================================== -->
-<main class="main-content">
-
-    <!-- Encabezado de la página -->
-    <header class="page-header">
-        <div class="header-titles">
-            <h1>Panel de la fundación</h1>
-            <p>Huellas Felices · Bogotá</p>
-        </div>
-        <button class="btn-primary">+ Publicar animal</button>
+    <header class="navBar">
+        <button><i class="fa-solid fa-house"></i><span>panel</span></button>
+        <button><i class="fa-solid fa-shield-dog"></i><span>mis animales </span></button>
+        <button><i class="fa-regular fa-file"></i><span>solicitudes </span></button>
+        <button><i class="fa-solid fa-plus"></i><span>registrar animal</span></button>
+        <button><i class="fa-solid fa-circle-check"></i><span>verificacion</span></button>
+        <button><i class="fa-solid fa-location-dot"></i><span>sedes</span></button>
+        <button><i class="fa-solid fa-gear"></i><span>configuracion</span></button>
+        
+        <button><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Cerrar sesión</span></button>
     </header>
-
-    <!-- Banner de Alerta -->
-    <div class="alert-banner warning">
-        <div class="alert-content">
-            <span class="icon">⚠️</span>
-            <p><strong>Tenés 1 animal esperando que actualices su estado</strong> — llevan más de 3 días en espera sin novedades.</p>
-        </div>
-        <a href="#" class="alert-link">Revisar ahora →</a>
-    </div>
-
-    <!-- Sección de Tarjetas de Estadísticas (Usar CSS Grid aquí) -->
-    <section class="stats-grid">
-        <!-- Tarjeta 1 -->
-        <article class="stat-card">
-            <div class="icon-wrapper green">📍</div>
-            <h3>2</h3>
-            <p>Animales disponibles</p>
-        </article>
-        <!-- Tarjeta 2 -->
-        <article class="stat-card">
-            <div class="icon-wrapper orange">🛡️</div>
-            <h3>1</h3>
-            <p>En espera</p>
-        </article>
-        <!-- Tarjeta 3 -->
-        <article class="stat-card">
-            <div class="icon-wrapper green">📄</div>
-            <h3>5</h3>
-            <p>Solicitudes sin revisar</p>
-        </article>
-        <!-- Tarjeta 4 -->
-        <article class="stat-card">
-            <div class="icon-wrapper green">❤️</div>
-            <h3>3</h3>
-            <p>Adopciones del mes</p>
-        </article>
-    </section>
-
-    <!-- Sección de Tabla de Solicitudes -->
-    <section class="recent-requests">
-        <header class="section-header">
-            <h2>Últimas solicitudes</h2>
-            <a href="#">Ver todas →</a>
-        </header>
-
-        <div class="table-responsive">
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>ANIMAL</th>
-                        <th>SOLICITANTE</th>
-                        <th>FECHA</th>
-                        <th>ESTADO</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Zeus</td>
-                        <td>Valentina Torres</td>
-                        <td>19 ago</td>
-                        <td><span class="status-badge new">Nueva</span></td>
-                    </tr>
-                    <tr>
-                        <td>Zeus</td>
-                        <td>Ricardo Mejía</td>
-                        <td>20 ago</td>
-                        <td><span class="status-badge new">Nueva</span></td>
-                    </tr>
-                    <!-- Repetir filas según sea necesario -->
-                </tbody>
-            </table>
-        </div>
-    </section>
-
-    <!-- Sección de Mis Animales (Mini tarjetas) -->
-    <section class="my-animals">
-        <header class="section-header">
-            <h2>Mis animales</h2>
-        </header>
-
-        <!-- Contenedor flex o grid para las fotos -->
-        <div class="animal-cards-grid">
-            <!-- Animal 1 -->
-            <article class="animal-profile-card">
-                <img src="ruta/zeus.jpg" alt="Foto de Zeus">
-                <div class="animal-info">
-                    <h4>Zeus</h4>
-                    <p>Pitbull Americano</p>
-                    <span class="tag tag-warning">En espera · 4d</span>
+    <main>
+        <div class="cont-princ">
+            <div class="panel">
+                <div class="info">
+                    <h1>Panel de fundación</h1>
+                    <h3>Huellas Felices-bogota</h3>
+                    <button><i class="fa-solid fa-plus"></i><span>registrar animal</span></button>
                 </div>
-            </article>
 
-            <!-- Animal 2 -->
-            <article class="animal-profile-card">
-                <img src="ruta/cleo.jpg" alt="Foto de Cleo">
-                <div class="animal-info">
-                    <h4>Cleo</h4>
-                    <p>Persa Himalayo</p>
-                    <span class="tag tag-success">Disponible</span>
+                <div class="estado">
+                       <i class="fa-solid fa-triangle-exclamation"></i>
+                        <p>tienes un animal esperando a que actualices su estado</p>
+                        <button><i class="fa-solid fa-arrow-right"></i><span>revisar ahora</span></button>
                 </div>
-            </article>
 
-            <!-- Animal 3 -->
-            <article class="animal-profile-card">
-                <img src="ruta/bruno.jpg" alt="Foto de Bruno">
-                <div class="animal-info">
-                    <h4>Bruno</h4>
-                    <p>Labrador Retriever</p>
-                    <span class="tag tag-success">Disponible</span>
+                <div class="card-1">
+                        <div class="logo-1">
+                            <i class="fa-solid fa-paw"></i>
+                        </div>
+                        <p>2</p>
+                        <p>animales disponibles</p>
                 </div>
-            </article>
+                <div class="card-2">
+                    <div class="logo-2">
+                          <i class="fa-regular fa-shield"></i>
+                        </div>
+                        <p>1</p>
+                        <p>En espera</p>
+
+                </div>
+                <div class="card-3">
+                    <div class="logo-3">
+                         <i class="fa-regular fa-file"></i>
+                        </div>
+                        <p>5</p>
+                        <p>Solicitudes sin revisar</p>
+
+                </div>
+                <div class="card-4">
+                    <div class="logo-4">
+                        <i class="fa-regular fa-heart"></i>
+                        </div>
+                        <p>3</p>
+                        <p>Adopciones del mes </p>
+
+                </div>
+
+                <div class="solic">
+                    <h2>ultimas solicitudes</h2>
+                    <table>
+                        <tr> <!-- fila-->
+                            <th>ANIMAL</th>
+                            <th>SOLICITANTE</th>
+                            <th>FECHA</th>
+                            <th>ESTADO</th>
+                        </tr>
+
+                        <tr>
+                            <td>Zeus</td>
+                            <td>Valentina Torres</td>
+                            <td>19 ago</td>
+                            <td>Nueva</td>
+                        </tr>
+
+                        <tr>
+                            <td>Zeus</td>
+                            <td>ricardo mejia</td>
+                            <td>20 ago</td>
+                            <td>pendiente</td>
+                        </tr>
+
+                        <tr>
+                            <td>Tatu</td>
+                            <td>Ana Mora</td>
+                            <td>21 ago</td>
+                            <td>Nueva</td>
+                        </tr>
+
+                        <tr>
+                            <td>Cleo</td>
+                            <td>Laura Herrera</td>
+                            <td>21 ago</td>
+                            <td>Rechazado</td>
+                        </tr>
+
+                        <tr>
+                            <td>Cleo</td>
+                            <td>Felipe Suarez </td>
+                            <td>21 ago</td>
+                            <td>Adoptado</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="animals">
+                    <h2>mis animales</h2>
+                    <button class="animals-1">
+                                <img src="{{ asset('storage/img/animales/perro1.jpg') }}" alt="Perro">
+                    </button>
+                    
+                    <button class="animals-2">
+                                <img src="" alt="">
+                    </button>
+
+                    <button class="animals-3">
+                                <img src="" alt="">
+                    </button>
+
+                    <button class="animals-4">
+                                <img src="" alt="">
+
+                    </button>
+                </div>
+
+
+            
+            </div>
+
         </div>
-    </section>
 
-</main>
 
+ 
+    </main>
 </body>
 </html>
