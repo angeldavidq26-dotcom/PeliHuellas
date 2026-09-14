@@ -38,10 +38,10 @@ class SecurityTest extends TestCase
 
         $response->assertOk();
 
-        $response->assertSee('Passkeys');
-        $response->assertSee('No passkeys yet');
-        $response->assertSee('Two-factor authentication');
-        $response->assertSee('Enable 2FA');
+        $response->assertSee('Llaves de acceso');
+        $response->assertSee('Aún no hay llaves de acceso');
+        $response->assertSee('Autenticación doble factor');
+        $response->assertSee('Habilitar 2FA');
     }
 
     public function test_security_settings_page_requires_password_confirmation_when_enabled(): void
@@ -64,10 +64,10 @@ class SecurityTest extends TestCase
             ->withSession(['auth.password_confirmed_at' => time()])
             ->get(route('security.edit'))
             ->assertOk()
-            ->assertSee('Update password')
-            ->assertDontSee('Manage your passkeys for passwordless sign-in')
-            ->assertDontSee('Add a passkey to sign in without a password')
-            ->assertDontSee('Two-factor authentication');
+            ->assertSee('Actualizar contraseña')
+            ->assertDontSee('Administre sus llaves de acceso para iniciar sesión sin contraseña')
+            ->assertDontSee('Agregue una llave de acceso para iniciar sesión sin contraseña')
+            ->assertDontSee('Autenticación doble factor');
     }
 
     public function test_two_factor_authentication_disabled_when_confirmation_abandoned_between_requests(): void

@@ -2,27 +2,47 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
     <head>
         @include('partials.head')
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap">
     </head>
     <body class="min-h-screen bg-white antialiased dark:bg-linear-to-b dark:from-neutral-950 dark:to-neutral-900">
         <div class="relative grid h-dvh flex-col items-center justify-center px-8 sm:px-0 lg:max-w-none lg:grid-cols-2 lg:px-0">
-            <div class="bg-muted relative hidden h-full flex-col p-10 text-white lg:flex dark:border-e dark:border-neutral-800">
-                <div class="absolute inset-0 bg-neutral-900"></div>
-                <a href="{{ route('home') }}" class="relative z-20 flex items-center text-lg font-medium" wire:navigate>
-                    <span class="flex h-10 w-10 items-center justify-center rounded-md">
-                        <x-app-logo-icon class="me-2 h-7 fill-current text-white" />
+            <div class="relative hidden h-full flex-col justify-end overflow-hidden p-10 text-white lg:flex">
+                <div
+                    class="absolute inset-0 bg-cover bg-center"
+                    style="background-image: linear-gradient(to top, rgba(10,25,18,.88) 0%, rgba(10,25,18,.25) 55%, rgba(10,25,18,.05) 100%), url('https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=1200&q=80');"
+                ></div>
+
+                <a href="{{ route('home') }}" class="relative z-20 flex items-center gap-2 text-lg font-medium" wire:navigate>
+                    <span class="flex h-9 w-9 items-center justify-center rounded-lg bg-white/15 backdrop-blur-sm">
+                        <img src="{{ asset('footprint_huella_logo.svg') }}" alt="" class="h-5 w-5">
                     </span>
-                    {{ config('app.name', 'Laravel') }}
+                    <span style="font-family: 'Playfair Display', serif;">{{ config('app.name', 'PeliHuellas') }}</span>
                 </a>
 
-                @php
-                    [$message, $author] = str(Illuminate\Foundation\Inspiring::quotes()->random())->explode('-');
-                @endphp
+                <div class="relative z-20 mt-auto max-w-md">
+                    <h2 class="mb-3 text-3xl leading-tight font-bold" style="font-family: 'Playfair Display', serif;">
+                        Cada animal merece un hogar. Cada hogar, el animal correcto.
+                    </h2>
+                    <p class="mb-8 text-white/85">
+                        Fundaciones y veterinarias verificadas. Adopciones y cuidado con confianza.
+                    </p>
 
-                <div class="relative z-20 mt-auto">
-                    <blockquote class="space-y-2">
-                        <flux:heading size="lg">&ldquo;{{ trim($message) }}&rdquo;</flux:heading>
-                        <footer><flux:heading>{{ trim($author) }}</flux:heading></footer>
-                    </blockquote>
+                    <div class="flex gap-8">
+                        <div>
+                            <strong class="block text-2xl font-bold" style="font-family: 'Playfair Display', serif;">3.841</strong>
+                            <span class="text-sm text-white/75">Animales</span>
+                        </div>
+                        <div>
+                            <strong class="block text-2xl font-bold" style="font-family: 'Playfair Display', serif;">127</strong>
+                            <span class="text-sm text-white/75">Fundaciones</span>
+                        </div>
+                        <div>
+                            <strong class="block text-2xl font-bold" style="font-family: 'Playfair Display', serif;">89</strong>
+                            <span class="text-sm text-white/75">Veterinarias</span>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="w-full lg:p-8">
@@ -32,9 +52,13 @@
                             <x-app-logo-icon class="size-9 fill-current text-black dark:text-white" />
                         </span>
 
-                        <span class="sr-only">{{ config('app.name', 'Laravel') }}</span>
+                        <span class="sr-only">{{ config('app.name', 'PeliHuellas') }}</span>
                     </a>
                     {{ $slot }}
+
+                    <a href="{{ route('home') }}" class="block text-center text-sm text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200" wire:navigate>
+                        &larr; Volver al catálogo
+                    </a>
                 </div>
             </div>
         </div>

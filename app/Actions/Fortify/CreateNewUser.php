@@ -4,15 +4,15 @@ namespace App\Actions\Fortify;
 
 use App\Actions\Teams\CreateTeam;
 use App\Concerns\PasswordValidationRules;
-use App\Concerns\ProfileValidationRules;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 
 class CreateNewUser implements CreatesNewUsers
 {
-    use PasswordValidationRules, ProfileValidationRules;
+    use PasswordValidationRules;
 
     public function __construct(private CreateTeam $createTeam)
     {
@@ -27,14 +27,21 @@ class CreateNewUser implements CreatesNewUsers
     public function create(array $input): User
     {
         Validator::make($input, [
-            ...$this->profileRules(),
+            'nombres' => ['required', 'string', 'max:255'],
+            'apellidos' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', Rule::unique(User::class)],
+            'telefono' => ['nullable', 'string', 'max:25'],
             'password' => $this->passwordRules(),
+            'terms' => ['accepted'],
         ])->validate();
 
         return DB::transaction(function () use ($input) {
             $user = User::create([
-                'name' => $input['name'],
+                'name' => trim($input['nombres'].' '.$input['apellidos']),
+                'nombres' => $input['nombres'],
+                'apellidos' => $input['apellidos'],
                 'email' => $input['email'],
+                'telefono' => $input['telefono'] ?? null,
                 'password' => $input['password'],
             ]);
 

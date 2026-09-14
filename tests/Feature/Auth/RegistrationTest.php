@@ -20,10 +20,13 @@ class RegistrationTest extends TestCase
     public function test_new_users_can_register(): void
     {
         $response = $this->post(route('register.store'), [
-            'name' => 'John Doe',
+            'nombres' => 'John',
+            'apellidos' => 'Doe',
             'email' => 'test@example.com',
+            'telefono' => '3105550000',
             'password' => 'password',
             'password_confirmation' => 'password',
+            'terms' => true,
         ]);
 
         $user = User::where('email', 'test@example.com')->first();
