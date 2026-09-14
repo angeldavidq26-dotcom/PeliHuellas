@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 // Route::view('/mascotas','mascota')->name('mascota')
 
-
+Route::view('/registro', 'registro')->name('registro');
 
 Route::view('/', 'index')->name('home');
 Route::view('/panel-fundacion', 'Panel_fundacion')->name('panel.fundacion');

@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel fundacion</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.css" integrity="sha512-x9WwyMYBnlXMNQ6kQ/Lyzu1NqIhLQKL5Oq6xByfXuRj7s9CskyCbLv/1IjqzJmXwFXWr0ov6jBV7Qbc0hh9nHg==" crossorigin="anonymous" referrerpolicy="no-referrer">
-
+    
     <style>
         main{
-            background-color: #F3F6F4; 
+            background-color: #F3F6F4;
         }
     </style>
 </head>
@@ -27,7 +27,7 @@
         <button><i class="fa-solid fa-circle-check"></i><span>verificacion</span></button>
         <button><i class="fa-solid fa-location-dot"></i><span>sedes</span></button>
         <button><i class="fa-solid fa-gear"></i><span>configuracion</span></button>
-        
+
         <button><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Cerrar sesión</span></button>
     </header>
     <main>
@@ -129,7 +129,7 @@
                     <button class="animals-1">
                                 <img src="{{ asset('storage/img/animales/perro1.jpg') }}" alt="Perro">
                     </button>
-                    
+
                     <button class="animals-2">
                                 <img src="" alt="">
                     </button>
@@ -145,13 +145,13 @@
                 </div>
 
 
-            
+
             </div>
 
         </div>
 
 
- 
+
     </main>
 </body>
 </html>
