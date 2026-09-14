@@ -1,25 +1,16 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
     <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        @vite('resources/css/index.css')
+        @include('partials.head')
+    </head>
+
+    @vite('resources/css/index.css')
         <title>{{ config('app.name', '') }} - {{ __('Inicio') }} </title>
 
-        <link rel="icon" href="/footprint_huella_logo.svg" sizes="any">
-        <link rel="icon" href="/footprint_huella_logo.svg" type="image/svg+xml">
-        <link rel="apple-touch-icon" href="/footprint_huella_logo.svg">
 
         @fonts
 
-        <!-- Estilos del Inicio -->
 
-            <style>
 
-            </style>
-
-    </head>
-    <body>
         <header class="headerprincipal">
             @if (Route::has('login'))
                 <nav class="nav-derecha">
