@@ -11,7 +11,7 @@
             <div class="relative hidden h-full flex-col justify-end overflow-hidden p-10 text-white lg:flex">
                 <div
                     class="absolute inset-0 bg-cover bg-center"
-                    style="background-image: linear-gradient(to top, rgba(10,25,18,.88) 0%, rgba(10,25,18,.25) 55%, rgba(10,25,18,.05) 100%), url('https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=1200&q=80');"
+                    style="background-image: linear-gradient(to top, rgba(9,20,16,.78) 0%, rgba(9,20,16,.22) 50%, rgba(9,20,16,.03) 100%), url('https://images.unsplash.com/photo-1560807707-8cc77767d783?auto=format&fit=crop&w=1200&q=80');"
                 ></div>
 
                 <a href="{{ route('home') }}" class="relative z-20 flex items-center gap-2 text-lg font-medium" wire:navigate>
@@ -21,12 +21,12 @@
                     <span style="font-family: 'Playfair Display', serif;">{{ config('app.name', 'PeliHuellas') }}</span>
                 </a>
 
-                <div class="relative z-20 mt-auto max-w-md">
+                <div class="relative z-20 mt-auto max-w-md rounded-3xl border border-white/10 bg-black/15 p-6 backdrop-blur-md">
                     <h2 class="mb-3 text-3xl leading-tight font-bold" style="font-family: 'Playfair Display', serif;">
                         Cada animal merece un hogar. Cada hogar, el animal correcto.
                     </h2>
                     <p class="mb-8 text-white/85">
-                        Fundaciones y veterinarias verificadas. Adopciones y cuidado con confianza.
+                        Fundaciones y veterinarias verificadas. Adopciones con seguridad y transparencia.
                     </p>
 
                     <div class="flex gap-8">

@@ -11,6 +11,7 @@
         </style>
     </head>
     <body class="bg-white text-neutral-900 antialiased">
+<<<<<<< HEAD
         <x-site-header />
 
         <section class="relative overflow-hidden">
@@ -104,6 +105,14 @@
                 </div>
             </div>
         </section>
+=======
+        @include('partials.home.header')
+        @include('partials.home.hero')
+        @include('partials.home.stats')
+        @include('partials.home.catalog')
+        @include('partials.home.seguridad')
+        @include('partials.home.footer')
+>>>>>>> 559177032a473abdf8ad2e0875caefbf3bf07480
 
         @fluxScripts
     </body>
