@@ -94,7 +94,7 @@
         </form>
 
         <div class="rounded-lg bg-[#dcece4] p-4 text-sm text-[#234a3a] dark:bg-emerald-950 dark:text-emerald-200">
-            {{ __('Con tu cuenta ya podés reservar citas de cuidado. Para solicitar una adopción te pediremos algunos datos más.') }}
+            {{ __('Con tu cuenta ya podés explorar animales en adopción. Para solicitar una adopción te pediremos algunos datos más.') }}
         </div>
 
         <div class="space-x-1 rtl:space-x-reverse text-center text-sm text-zinc-600 dark:text-zinc-400">
