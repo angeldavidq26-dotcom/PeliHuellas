@@ -1,0 +1,18 @@
+se solicita generar esta interfaz de animales de adopcion teniendo en cuenta las capturas de C:\laravel\PeliHuellas\IA\peticiones\mateo\estructurarProyecto\contexto_adopcion.txt,
+sin tener el crear cuenta ni ingresar y nesesito ademas que todos los botones disponibles esten viculados con la base de datos y las migraciones
+
+arbol contexto: 
+PS IA\peticiones\mateo\estructurarProyecto
+
+
+C:.
+│   contexto.txt
+│   contexto_adopcion.txt
+│   instrucciones.txt
+│
+└───contexto
+        Adopcion_animales.png
+        dashboard.png
+        dashboard2.png
+        login.png
+        registro.png

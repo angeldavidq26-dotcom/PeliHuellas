@@ -1,0 +1,35 @@
+se solicita generar esta interfaz con las imagenes que estan ubicadas en en las carpetas 
+
+
+
+C:\laravel\PeliHuellas\IA\peticiones\mateo\estructurarProyecto\contexto\Panel.png
+C:\laravel\PeliHuellas\IA\peticiones\mateo\estructurarProyecto\contexto\Mis_animales.png
+C:\laravel\PeliHuellas\IA\peticiones\mateo\estructurarProyecto\contexto\Publicar_animal.png
+C:\laravel\PeliHuellas\IA\peticiones\mateo\estructurarProyecto\contexto\Verificacion.png
+C:\laravel\PeliHuellas\IA\peticiones\mateo\estructurarProyecto\contexto\Sedes.png
+C:\laravel\PeliHuellas\IA\peticiones\mateo\estructurarProyecto\contexto\configuracion.png
+
+arbol contexto :
+
+
+C:.
+│   contexto.txt
+│   contexto_
+│   contexto_adopcion.txt
+│   contexto_Panel_funacion.txt
+│   instrucciones.txt
+│
+└───contexto
+        Adopcion_animales.png
+        configuracion.png
+        dashboard.png
+        dashboard2.png
+        Detalles_animales.png
+        login.png
+        Mis_animales.png
+        Panel.png
+        Publicar_animal.png
+        registro.png
+        Sedes.png
+        Solucitudes.png
+        Verificacion.png

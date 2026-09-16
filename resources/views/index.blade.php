@@ -11,29 +11,7 @@
         </style>
     </head>
     <body class="bg-white text-neutral-900 antialiased">
-        <header class="border-b border-neutral-200">
-            <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-4">
-                <a href="{{ route('home') }}" class="flex items-center gap-2" wire:navigate>
-                    <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-[#1f5c47]">
-                        <img src="{{ asset('footprint_huella_logo.svg') }}" alt="" class="h-4 w-4">
-                    </span>
-                    <span class="pf-serif text-lg font-bold text-[#163f31]">{{ config('app.name', 'PeliHuellas') }}</span>
-                </a>
-
-                <nav class="flex items-center gap-4">
-                    @auth
-                        <flux:button :href="route('dashboard')" variant="primary" wire:navigate>
-                            {{ __('Ir a mi panel') }}
-                        </flux:button>
-                    @else
-                        <flux:link :href="route('login')" wire:navigate>{{ __('Ingresar') }}</flux:link>
-                        <flux:button :href="route('register')" variant="primary" wire:navigate>
-                            {{ __('Crear cuenta') }}
-                        </flux:button>
-                    @endauth
-                </nav>
-            </div>
-        </header>
+        <x-site-header />
 
         <section class="relative overflow-hidden">
             <div
@@ -53,7 +31,7 @@
                 </p>
 
                 <div class="flex flex-wrap gap-3">
-                    <flux:button :href="route('register')" wire:navigate>{{ __('Quiero adoptar') }}</flux:button>
+                    <flux:button :href="route('mascotas')" wire:navigate>{{ __('Quiero adoptar') }}</flux:button>
                     <flux:button :href="route('register')" variant="ghost" class="bg-transparent! text-white! ring-1 ring-white/70!" wire:navigate>
                         {{ __('Cuidar a mi mascota') }}
                     </flux:button>
@@ -88,7 +66,7 @@
                         <p class="mb-1 text-xs font-semibold tracking-widest text-[#1f5c47] uppercase">{{ __('Adopción') }}</p>
                         <h2 class="pf-serif text-2xl font-bold sm:text-3xl">{{ __('Animales esperando hogar') }}</h2>
                     </div>
-                    <flux:link :href="route('register')" wire:navigate>{{ __('Ver todos →') }}</flux:link>
+                    <flux:link :href="route('mascotas')" wire:navigate>{{ __('Ver todos →') }}</flux:link>
                 </div>
 
                 {{-- Datos de ejemplo mientras no exista un catálogo dinámico de mascotas. --}}
