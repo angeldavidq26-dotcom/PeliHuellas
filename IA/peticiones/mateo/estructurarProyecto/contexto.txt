@@ -1,0 +1,28 @@
+Se solicita generar una aplicación teniendo en cuenta las capturas "IA\peticiones\mateo\estructurarProyecto\contexto\dashboard2.png",
+"IA\peticiones\mateo\estructurarProyecto\contexto\dashboard.png" la idea es generar un dashboard sin tener los campos "Adoptar
+Servicios
+Solicitudes
+Mi perfil
+Mis citas"
+ya que esas funcionalidades requieren de tener la sesión abierta.
+
+tambien quiero que ajsutes la vista de inicio de sesión y registro con base a las capturas:
+        login.png
+        registro.png
+
+
+arbol contexto:
+
+
+PS C:\Laravel\PeliHuellas\IA\peticiones\mateo\estructurarProyecto> tree /f
+Listado de rutas de carpetas
+El número de serie del volumen es 000000A7 064C:9204
+C:.
+│   contexto.txt
+│   instrucciones.txt
+│
+└───contexto
+        dashboard.png
+        dashboard2.png
+        login.png
+        registro.png

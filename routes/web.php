@@ -5,12 +5,11 @@ use Illuminate\Support\Facades\Route;
 
 // Route::view('/mascotas','mascota')->name('mascota')
 
-Route::view('/registro', 'registro')->name('registro');
+Route::redirect('/registro', '/register')->name('registro');
 
-// Route::view('/', 'index')->name('home');
 Route::view('/', 'index')->name('home');
 Route::view('/panel-fundacion', 'Panel_fundacion')->name('panel.fundacion');
-
+Route::view('/mascotasss', 'mascotas')->name('mascotas');
 
 Route::prefix('{current_team}')
     ->middleware(['auth', 'verified', EnsureTeamMembership::class])

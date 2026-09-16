@@ -1,6 +1,6 @@
-<x-layouts::auth :title="__('Register')">
+<x-layouts::auth :title="__('Crear cuenta')">
     <div class="flex flex-col gap-6">
-        <x-auth-header :title="__('Create an account')" :description="__('Enter your details below to create your account')" />
+        <x-auth-header :title="__('Crear cuenta')" :description="__('Únete a PeliHuellas. Es gratis.')" />
 
         <!-- Session Status -->
         <x-auth-session-status class="text-center" :status="session('status')" />
@@ -11,37 +11,61 @@
 
         <form method="POST" action="{{ route('register.store') }}" class="flex flex-col gap-6">
             @csrf
-            <!-- Name -->
-            <flux:input
-                name="name"
-                :label="__('Name')"
-                :value="old('name')"
-                type="text"
-                required
-                autofocus
-                autocomplete="name"
-                :placeholder="__('Full name')"
-            />
+
+            <!-- Nombres / Apellidos -->
+            <div class="grid grid-cols-2 gap-4">
+                <flux:input
+                    name="nombres"
+                    :label="__('Nombres')"
+                    :value="old('nombres')"
+                    type="text"
+                    required
+                    autofocus
+                    autocomplete="given-name"
+                    placeholder="María"
+                />
+
+                <flux:input
+                    name="apellidos"
+                    :label="__('Apellidos')"
+                    :value="old('apellidos')"
+                    type="text"
+                    required
+                    autocomplete="family-name"
+                    placeholder="García"
+                />
+            </div>
 
             <!-- Email Address -->
             <flux:input
                 name="email"
-                :label="__('Email address')"
+                :label="__('Correo electrónico')"
                 :value="old('email')"
                 type="email"
                 required
                 autocomplete="email"
-                placeholder="email@example.com"
+                placeholder="tu@correo.com"
+            />
+
+            <!-- Phone -->
+            <flux:input
+                name="telefono"
+                :label="__('Teléfono')"
+                :value="old('telefono')"
+                type="tel"
+                autocomplete="tel"
+                placeholder="310 555 0000"
+                :description="__('Opcional — lo usan las fundaciones para contactarte.')"
             />
 
             <!-- Password -->
             <flux:input
                 name="password"
-                :label="__('Password')"
+                :label="__('Contraseña')"
                 type="password"
                 required
                 autocomplete="new-password"
-                :placeholder="__('Password')"
+                :placeholder="__('Mínimo 8 caracteres')"
                 passwordrules="{{ \Illuminate\Validation\Rules\Password::defaults()->toPasswordRulesString() }}"
                 viewable
             />
@@ -49,30 +73,38 @@
             <!-- Confirm Password -->
             <flux:input
                 name="password_confirmation"
-                :label="__('Confirm password')"
+                :label="__('Confirmar contraseña')"
                 type="password"
                 required
                 autocomplete="new-password"
-                :placeholder="__('Confirm password')"
+                :placeholder="__('Repetí la contraseña')"
                 passwordrules="{{ \Illuminate\Validation\Rules\Password::defaults()->toPasswordRulesString() }}"
                 viewable
             />
 
-            <div class="flex items-center justify-end">
-                <flux:button type="submit" variant="primary" class="w-full" data-test="register-user-button">
-                    {{ __('Create account') }}
-                </flux:button>
-            </div>
+            <flux:checkbox
+                name="terms"
+                required
+                :label="__('Acepto los Términos de uso y la Política de privacidad.')"
+            />
+
+            <flux:button type="submit" variant="primary" class="w-full" data-test="register-user-button">
+                {{ __('Crear cuenta') }}
+            </flux:button>
         </form>
 
+        <div class="rounded-lg bg-[#dcece4] p-4 text-sm text-[#234a3a] dark:bg-emerald-950 dark:text-emerald-200">
+            {{ __('Con tu cuenta ya podés reservar citas de cuidado. Para solicitar una adopción te pediremos algunos datos más.') }}
+        </div>
+
         <div class="space-x-1 rtl:space-x-reverse text-center text-sm text-zinc-600 dark:text-zinc-400">
-            <span>{{ __('Already have an account?') }}</span>
+            <span>{{ __('¿Ya tenés cuenta?') }}</span>
             <flux:link
                 :href="$teamInvitation ? route('login', ['invitation' => $teamInvitation['code']]) : route('login')"
                 data-test="team-invitation-login-link"
                 wire:navigate
             >
-                {{ __('Log in') }}
+                {{ __('Ingresar') }}
             </flux:link>
         </div>
     </div>

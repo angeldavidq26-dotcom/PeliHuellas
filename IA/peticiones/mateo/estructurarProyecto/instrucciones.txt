@@ -1,0 +1,3 @@
+ajustas vistas existentes, ajustar controladores, migraciones.
+
+
