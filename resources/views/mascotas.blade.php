@@ -83,7 +83,7 @@
                             <h2 class="mb-3 text-xs font-semibold tracking-widest text-neutral-500 uppercase">{{ __('Ciudad') }}</h2>
                             <select
                                 name="ciudad"
-                                class="w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm"
+                                class="w-full rounded-lg border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900"
                                 onchange="this.form.submit()"
                             >
                                 <option value="" @selected($filtros['ciudad'] === '')>{{ __('Todas') }}</option>
@@ -132,7 +132,7 @@
 
                             <select
                                 name="orden"
-                                class="rounded-lg border border-neutral-300 px-3 py-2 text-sm"
+                                class="rounded-lg border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900"
                                 onchange="this.form.submit()"
                             >
                                 <option value="recientes" @selected($filtros['orden'] === 'recientes')>{{ __('Más recientes') }}</option>
@@ -149,7 +149,11 @@
                         @else
                             <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
                                 @foreach ($mascotas as $mascota)
-                                    <div class="overflow-hidden rounded-xl border border-neutral-200 bg-white">
+                                    <a
+                                        href="{{ route('mascotas.show', $mascota) }}"
+                                        wire:navigate
+                                        class="block overflow-hidden rounded-xl border border-neutral-200 bg-white transition hover:border-[#1f5c47]/40 hover:shadow-sm"
+                                    >
                                         <div class="relative aspect-square">
                                             <img
                                                 src="{{ $mascota->fotoPrincipal?->url ?? $mascota->fotos->first()?->url ?? 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=500&q=80' }}"
@@ -188,7 +192,7 @@
                                                 </div>
                                             @endif
                                         </div>
-                                    </div>
+                                    </a>
                                 @endforeach
                             </div>
 

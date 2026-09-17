@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Fundacion;
+use App\Models\Mascota;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
@@ -57,16 +58,8 @@ class FundacionPanelController extends Controller
 
     public function misAnimales(): View
     {
-        $fundacion = $this->fundacion();
-
-        $mascotas = $fundacion->mascotas()
-            ->with(['fotoPrincipal', 'raza'])
-            ->latest('fecha_ingreso')
-            ->get();
-
         return view('pages.fundacion.mis-animales', [
-            'fundacion' => $fundacion,
-            'mascotas' => $mascotas,
+            'fundacion' => $this->fundacion(),
         ]);
     }
 
@@ -83,6 +76,39 @@ class FundacionPanelController extends Controller
     public function publicarForm(): View
     {
         return view('pages.fundacion.publicar', [
+            'fundacion' => $this->fundacion(),
+        ]);
+    }
+
+    public function editarAnimal(Mascota $mascota): View
+    {
+        $fundacion = $this->fundacion();
+
+        abort_unless($mascota->id_fundacion === $fundacion->id_fundacion, 404);
+
+        return view('pages.fundacion.editar-animal', [
+            'fundacion' => $fundacion,
+            'mascota' => $mascota,
+        ]);
+    }
+
+    public function verificacion(): View
+    {
+        return view('pages.fundacion.verificacion', [
+            'fundacion' => $this->fundacion(),
+        ]);
+    }
+
+    public function configuracion(): View
+    {
+        return view('pages.fundacion.configuracion', [
+            'fundacion' => $this->fundacion(),
+        ]);
+    }
+
+    public function solicitudes(): View
+    {
+        return view('pages.fundacion.solicitudes', [
             'fundacion' => $this->fundacion(),
         ]);
     }

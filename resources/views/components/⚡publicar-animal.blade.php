@@ -308,7 +308,7 @@ new class extends Component {
 
                 <div>
                     <flux:label>{{ __('Raza') }}</flux:label>
-                    <select wire:model="idRaza" class="mt-2 w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm">
+                    <select wire:model="idRaza" class="mt-2 w-full rounded-lg border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900">
                         <option value="">{{ __('Sin especificar / mestizo') }}</option>
                         @foreach ($this->razas() as $raza)
                             <option value="{{ $raza->id_raza }}">{{ $raza->nombre_raza }}</option>
@@ -359,7 +359,7 @@ new class extends Component {
                 @if ($this->sedes()->isNotEmpty())
                     <div class="sm:col-span-2">
                         <flux:label>{{ __('Sede') }}</flux:label>
-                        <select wire:model="idSede" class="mt-2 w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm">
+                        <select wire:model="idSede" class="mt-2 w-full rounded-lg border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900">
                             @foreach ($this->sedes() as $sede)
                                 <option value="{{ $sede->id_sede }}">{{ $sede->nombre }} — {{ $sede->ciudad }}</option>
                             @endforeach

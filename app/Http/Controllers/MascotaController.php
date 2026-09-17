@@ -70,4 +70,13 @@ class MascotaController extends Controller
             ],
         ]);
     }
+
+    public function show(Mascota $mascota): View
+    {
+        $mascota->load(['fundacion', 'sede', 'raza', 'fotos', 'caracteristicas']);
+
+        return view('mascota-detalle', [
+            'mascota' => $mascota,
+        ]);
+    }
 }

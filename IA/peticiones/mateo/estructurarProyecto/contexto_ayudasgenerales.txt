@@ -1,0 +1,23 @@
+Ayudame a mejorar el color de letra por que en varios formularios tienen problemas de no alcanzar a ver por que blanco con blanco no dejar observar,
+nesesito ademas que en el momento cuando la gente mire de tal manera los animales en adopcion este de tal manera como la imagen C:\Laravel\PeliHuellas\IA\peticiones\mateo\estructurarProyecto\contexto\Descripcion_general_animal.png
+
+ademas nesesito que en el index cuando utilize el boton de Registrar mi fundacion lo lleve directamente a una vista de iniciar session de tal manera para que llene un formulario en cual hacemos preguntas generales y nosotros eligamos si de por si la fundacion es aceptado 
+
+arbol contexto:
+
+C:.
+    Adopcion_animales.png
+    configuracion.png
+    dashboard.png
+    dashboard2.png
+    Descripcion_general_animal.png
+    Detalles_animales.png
+    footer y aviso.png
+    login.png
+    Mis_animales.png
+    Panel.png
+    Publicar_animal.png
+    registro.png
+    Sedes.png
+    Solucitudes.png
+    Verificacion.png

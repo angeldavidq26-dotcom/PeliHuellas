@@ -21,6 +21,9 @@ class Fundacion extends Model
         'telefono',
         'descripcion',
         'logo_url',
+        'documento_certificado_url',
+        'documento_representante_url',
+        'documentos_enviados_at',
         'capacidad',
         'estado_verificacion',
         'fecha_registro',
@@ -30,6 +33,7 @@ class Fundacion extends Model
     {
         return [
             'fecha_registro' => 'datetime',
+            'documentos_enviados_at' => 'datetime',
         ];
     }
 
@@ -41,5 +45,10 @@ class Fundacion extends Model
     public function mascotas(): HasMany
     {
         return $this->hasMany(Mascota::class, 'id_fundacion', 'id_fundacion');
+    }
+
+    public function documentosCompletos(): bool
+    {
+        return filled($this->documento_certificado_url) && filled($this->documento_representante_url);
     }
 }

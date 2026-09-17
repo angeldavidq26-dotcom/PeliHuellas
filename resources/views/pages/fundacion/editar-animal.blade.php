@@ -1,3 +1,3 @@
 <x-fundacion-shell :fundacion="$fundacion" active="mis-animales">
-    <livewire:mis-animales-fundacion :fundacion="$fundacion" />
+    <livewire:editar-animal :fundacion="$fundacion" :mascota="$mascota" />
 </x-fundacion-shell>

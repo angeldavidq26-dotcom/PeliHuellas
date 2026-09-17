@@ -17,8 +17,11 @@
             </p>
 
             <div class="flex flex-wrap gap-3">
-                <flux:button :href="route('register')" wire:navigate>{{ __('Quiero adoptar') }}</flux:button>
-                <flux:button :href="route('register')" variant="primary" wire:navigate>
+                <flux:button :href="route('mascotas')" wire:navigate>{{ __('Quiero adoptar') }}</flux:button>
+                <flux:button :href="route('register')" variant="ghost" class="bg-transparent! text-white! ring-1 ring-white/70!" wire:navigate>
+                    {{ __('Cuidar a mi mascota') }}
+                </flux:button>
+                <flux:button :href="route('solicitud-fundacion.formulario')" variant="primary" wire:navigate>
                     {{ __('Registrar mi fundación') }}
                 </flux:button>
             </div>

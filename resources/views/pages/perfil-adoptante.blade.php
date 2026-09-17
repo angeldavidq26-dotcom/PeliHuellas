@@ -10,14 +10,12 @@
             .pf-serif { font-family: 'Playfair Display', Georgia, serif; }
         </style>
     </head>
-    <body class="bg-white text-neutral-900 antialiased">
+    <body class="bg-neutral-50 text-neutral-900 antialiased">
         <x-site-header />
 
-        @include('partials.home.hero')
-        @include('partials.home.stats')
-        @include('partials.home.catalog')
-        @include('partials.home.seguridad')
-        @include('partials.home.footer')
+        <div class="mx-auto max-w-3xl px-6 py-10">
+            <livewire:perfil-adoptante />
+        </div>
 
         @fluxScripts
     </body>

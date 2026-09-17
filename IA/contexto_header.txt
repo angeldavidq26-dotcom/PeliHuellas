@@ -1,0 +1,36 @@
+ayudame a que estos sean los botones funcionales de por si,
+C:\Laravel\PeliHuellas\IA\peticiones\mateo\estructurarProyecto\contexto\mis_citas.png
+C:\Laravel\PeliHuellas\IA\peticiones\mateo\estructurarProyecto\contexto\mis_solicitudes.png
+
+ademas si algo puedes ayudar a tener una idea como de por si progresar con el proyecto que puedas añadir algo que de por si te pueda gustar, algo sencillo
+
+y pues que he hecho varias migraciones que de por si no estan utilizandoce tambien dime que puedo hacer con ellas
+
+Rama
+C:.
+│   contexto.txt
+│   contexto_
+│   contexto_adopcion.txt
+│   contexto_ayudasgenerales.txt
+│   contexto_Panel_funacion.txt
+│   instrucciones.txt
+│
+└───contexto
+        Adopcion_animales.png
+        configuracion.png
+        dashboard.png
+        dashboard2.png
+        Descripcion_general_animal.png
+        Detalles_animales.png
+        footer y aviso.png
+        login.png
+        Mis_animales.png
+        mis_citas.png
+        mis_solicitudes.png
+        Panel.png
+        Publicar_animal.png
+        registro.png
+        Sedes.png
+        Solucitudes.png
+        Verificacion.png
+
