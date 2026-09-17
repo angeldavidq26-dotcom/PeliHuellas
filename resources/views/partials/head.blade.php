@@ -5,9 +5,16 @@
     {{ filled($title ?? null) ? $title.' - '.config('app.name', 'PeliHuellas') : config('app.name', 'PeliHuellas') }}
 </title>
 
-    <link rel="icon" href="/footprint_huella_logo.svg" sizes="any">
-    <link rel="icon" href="/footprint_huella_logo.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/footprint_huella_logo.svg">
+    <link rel="icon" href="/logo-pelihuellas.svg" sizes="any">
+    <link rel="icon" href="/logo-pelihuellas.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/logo-pelihuellas.svg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap">
+
+    <style>
+        .pf-serif { font-family: 'Playfair Display', Georgia, serif; }
+    </style>
 
 @fonts
 

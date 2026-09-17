@@ -2,7 +2,7 @@
     <div class="mx-auto max-w-7xl px-6 py-14">
         <div class="mb-6 flex items-end justify-between">
             <div>
-                <p class="mb-1 text-xs font-semibold tracking-widest text-[#1f5c47] uppercase">{{ __('Adopción') }}</p>
+                <p class="mb-1 text-xs font-semibold tracking-widest text-[#1B5C4F] uppercase">{{ __('Adopción') }}</p>
                 <h2 class="pf-serif text-2xl font-bold sm:text-3xl">{{ __('Animales esperando hogar') }}</h2>
             </div>
             <flux:link :href="route('mascotas')" wire:navigate>{{ __('Ver todos →') }}</flux:link>
@@ -19,7 +19,7 @@
                 <div class="overflow-hidden rounded-xl border border-neutral-200 bg-white">
                     <div class="relative aspect-square">
                         <img src="{{ $mascota['foto'] }}" alt="{{ $mascota['nombre'] }}" class="h-full w-full object-cover">
-                        <span class="absolute top-3 left-3 rounded-full bg-[#1f5c47] px-3 py-1 text-xs font-semibold text-white">
+                        <span class="absolute top-3 left-3 rounded-full bg-[#1B5C4F] px-3 py-1 text-xs font-semibold text-white">
                             {{ __('Disponible') }}
                         </span>
                     </div>

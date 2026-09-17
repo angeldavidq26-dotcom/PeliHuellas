@@ -1,4 +1,4 @@
-<section class="bg-[#1f5c47]">
+<section class="bg-[#1B5C4F]">
     <div class="mx-auto grid max-w-7xl grid-cols-3 gap-4 px-6 py-10 text-center text-white">
         <div>
             <strong class="pf-serif block text-3xl font-bold">3.841</strong>

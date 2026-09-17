@@ -25,13 +25,6 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         @include('partials.head')
-
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap">
-
-        <style>
-            .pf-serif { font-family: 'Playfair Display', Georgia, serif; }
-        </style>
     </head>
     <body class="antialiased">
         <div class="flex min-h-screen bg-[#F3F6F4] text-neutral-900">

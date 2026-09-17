@@ -23,5 +23,10 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call(MascotaSeeder::class);
+
+        $this->call([
+    MascotaSeeder::class,
+    RoleUserSeeder::class,
+]);
     }
 }
