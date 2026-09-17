@@ -1,0 +1,20 @@
+Actúa como un Product Manager y Arquitecto de Software experto. Estoy desarrollando un sistema en Laravel 13 llamado "Pelihuellas", enfocado en la adopción y el bienestar integral de mascotas.
+
+A continuación, te proporcionaré la estructura actual de mis migraciones y modelos. Tu objetivo es analizar el alcance del proyecto y decirme **qué módulos comerciales, servicios o funcionalidades clave me hacen falta**.
+
+Quiero que las ideas vengan completamente de ti: propón áreas de expansión, nuevos servicios para los usuarios o características operativas que harían que este sistema sea mucho más completo. Por cada recomendación que hagas, justifícame de manera directa y convincente por qué es una excelente idea incorporarla y por qué debería mantenerla definitivamente en el proyecto.
+
+Aquí está la estructura actual de mi sistema:
+[Pega aquí el código de tus migraciones/modelos]
+
+
+
+
+
+
+
+7. Reportes de maltrato / rescate ciudadano
+El sistema modela fundaciones publicando animales que ya tienen, pero no captura el flujo inverso: un ciudadano que encuentra un animal en la calle o reporta maltrato. Un módulo reporte_rescate (ubicación, fotos, descripción, estado: nuevo/atendido/descartado, fundación asignada) conecta a la comunidad con las fundaciones. Por qué mantenerlo: alinea el producto con su propósito declarado de "bienestar integral" en vez de limitarlo a gestión de inventario de adopciones; además es una fuente natural de nuevos animales para mascota.
+
+8. Auditoría y permisos granulares por sede/equipo
+Ya existe teams/team_members/team_invitations con un role string libre, pero no veo un catálogo de permisos ni logs de quién hizo qué en el panel de fundación (más allá de estado_mascota para cambios de estado del animal). Con múltiples usuarios por fundación (varios voluntarios con acceso), falta trazabilidad general de acciones administrativas (editar mascota, resolver solicitud, subir documento). Por qué mantenerlo: en cuanto una fundación tenga más de un usuario operando el panel, la ausencia de auditoría es un riesgo operativo y de confianza — es mucho más barato construirlo ahora que reconstruirlo cuando ya haya datos en producción.

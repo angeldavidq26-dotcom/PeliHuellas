@@ -77,7 +77,10 @@
             </flux:sidebar.nav>
         </flux:sidebar>
 
+
+
         {{ $slot }}
+
 
         <livewire:create-team-modal />
 

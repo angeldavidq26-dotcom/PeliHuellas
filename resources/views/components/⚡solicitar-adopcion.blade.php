@@ -3,6 +3,7 @@
 use App\Models\Mascota;
 use App\Models\SolicitudAdopcion;
 use App\Models\Usuario;
+use App\Notifications\SolicitudAdopcionCreada;
 use Flux\Flux;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
@@ -48,12 +49,14 @@ new class extends Component {
             return;
         }
 
-        SolicitudAdopcion::create([
+        $solicitud = SolicitudAdopcion::create([
             'id_usuario' => $this->usuario->id_usuario,
             'id_mascota' => $this->mascota->id_mascota,
             'fecha_solicitud' => now(),
             'estado' => 'pendiente',
         ]);
+
+        $this->mascota->fundacion?->usuario?->user?->notify(new SolicitudAdopcionCreada($solicitud));
 
         unset($this->solicitudExistente);
 

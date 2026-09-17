@@ -23,6 +23,7 @@ Route::prefix('registrar-fundacion')->name('solicitud-fundacion.')->group(functi
 Route::middleware(['auth'])->group(function () {
     Route::view('/servicios', 'pages.placeholder', ['titulo' => __('Servicios')])->name('servicios');
     Route::get('/solicitudes', [AdoptanteController::class, 'solicitudes'])->name('solicitudes');
+    Route::get('/favoritos', [AdoptanteController::class, 'favoritos'])->name('favoritos');
     Route::get('/perfil-adoptante', [AdoptanteController::class, 'perfil'])->name('perfil-adoptante');
     Route::view('/mis-citas', 'pages.placeholder', ['titulo' => __('Mis citas')])->name('citas');
 });
@@ -34,8 +35,11 @@ Route::prefix('panel-fundacion')->name('fundacion.')->group(function () {
     Route::get('/publicar', [FundacionPanelController::class, 'publicarForm'])->name('publicar');
     Route::get('/sedes', [FundacionPanelController::class, 'sedes'])->name('sedes');
     Route::get('/solicitudes', [FundacionPanelController::class, 'solicitudes'])->name('solicitudes');
+    Route::get('/adopciones', [FundacionPanelController::class, 'adopciones'])->name('adopciones');
+    Route::get('/adopciones/{adopcion}', [FundacionPanelController::class, 'adopcionShow'])->name('adopciones.show');
     Route::get('/verificacion', [FundacionPanelController::class, 'verificacion'])->name('verificacion');
     Route::get('/configuracion', [FundacionPanelController::class, 'configuracion'])->name('configuracion');
+    Route::get('/auditoria', [FundacionPanelController::class, 'auditoria'])->name('auditoria');
 });
 
 Route::prefix('panel-admin')->name('admin.')->group(function () {

@@ -67,6 +67,11 @@ class Mascota extends Model
         return $this->hasMany(FotoMascota::class, 'id_mascota', 'id_mascota')->orderBy('orden');
     }
 
+    public function historialMedico(): HasMany
+    {
+        return $this->hasMany(HistorialMedico::class, 'id_mascota', 'id_mascota')->orderByDesc('fecha');
+    }
+
     public function fotoPrincipal(): HasOne
     {
         return $this->hasOne(FotoMascota::class, 'id_mascota', 'id_mascota')

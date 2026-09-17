@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class SolicitudAdopcion extends Model
 {
@@ -50,5 +52,15 @@ class SolicitudAdopcion extends Model
     public function mascota(): BelongsTo
     {
         return $this->belongsTo(Mascota::class, 'id_mascota', 'id_mascota');
+    }
+
+    public function adopcion(): HasOne
+    {
+        return $this->hasOne(Adopcion::class, 'id_solicitud', 'id_solicitud');
+    }
+
+    public function mensajes(): HasMany
+    {
+        return $this->hasMany(Mensaje::class, 'id_solicitud', 'id_solicitud')->orderBy('fecha_envio');
     }
 }

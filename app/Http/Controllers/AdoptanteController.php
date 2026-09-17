@@ -15,4 +15,9 @@ class AdoptanteController extends Controller
     {
         return view('pages.mis-solicitudes');
     }
+
+    public function favoritos(): View
+    {
+        return view('pages.mis-favoritos');
+    }
 }

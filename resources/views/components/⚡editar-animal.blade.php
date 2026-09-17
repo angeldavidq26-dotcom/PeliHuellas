@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Auditoria;
 use App\Models\Caracteristica;
 use App\Models\Fundacion;
 use App\Models\Mascota;
@@ -147,6 +148,8 @@ new class extends Component {
             }
 
             $this->mascota->caracteristicas()->sync($this->caracteristicasSeleccionadas);
+
+            Auditoria::registrar('mascota.actualizada', $this->mascota, $this->fundacion->id_usuario);
         });
 
         Flux::toast(variant: 'success', text: __(':nombre se actualizó correctamente.', ['nombre' => $this->nombre]));

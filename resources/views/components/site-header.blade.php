@@ -20,6 +20,9 @@
                 <flux:link :href="route('solicitudes')" :class="request()->routeIs('solicitudes') ? 'text-[#1f5c47]' : ''" wire:navigate>
                     {{ __('Solicitudes') }}
                 </flux:link>
+                <flux:link :href="route('favoritos')" :class="request()->routeIs('favoritos') ? 'text-[#1f5c47]' : ''" wire:navigate>
+                    {{ __('Favoritos') }}
+                </flux:link>
                 <flux:link :href="route('profile.edit')" :class="request()->routeIs('profile.edit') ? 'text-[#1f5c47]' : ''" wire:navigate>
                     {{ __('Mi perfil') }}
                 </flux:link>
@@ -27,6 +30,8 @@
                     {{ __('Mis citas') }}
                 </flux:link>
             </nav>
+
+            <livewire:notificaciones-menu />
 
             <flux:button :href="route('dashboard')" variant="primary" wire:navigate>
                 {{ __('Ir a mi panel') }}

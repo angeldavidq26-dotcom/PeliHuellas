@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Auditoria;
 use App\Models\Fundacion;
 use Flux\Flux;
 use Illuminate\Support\Facades\Storage;
@@ -41,6 +42,8 @@ new class extends Component {
         $this->fundacion->update([
             $columna => Storage::disk('public')->url($path),
         ]);
+
+        Auditoria::registrar('fundacion.documento_subido', $this->fundacion, $this->fundacion->id_usuario, ['campo' => $columna]);
 
         $this->{$propiedad} = null;
 

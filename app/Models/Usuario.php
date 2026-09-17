@@ -57,6 +57,11 @@ class Usuario extends Model
         return $this->hasMany(SolicitudAdopcion::class, 'id_usuario', 'id_usuario');
     }
 
+    public function favoritos(): HasMany
+    {
+        return $this->hasMany(Favorito::class, 'id_usuario', 'id_usuario');
+    }
+
     /**
      * Busca el registro de dominio (usuario) enlazado a la cuenta de
      * autenticación indicada, si ya existe. Muchas partes del esquema

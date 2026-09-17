@@ -5,9 +5,12 @@ use App\Models\Fundacion;
 use App\Models\Mascota;
 use App\Models\Raza;
 use App\Models\SedeFundacion;
+use App\Models\Usuario;
+use App\Notifications\MascotaPublicadaCoincide;
 use Flux\Flux;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
@@ -137,9 +140,29 @@ new class extends Component {
             return $mascota;
         });
 
+        $this->notificarAdoptantesCoincidentes($mascota);
+
         Flux::toast(variant: 'success', text: __(':nombre se publicó correctamente.', ['nombre' => $mascota->nombre]));
 
         $this->redirectRoute('fundacion.mis-animales', navigate: true);
+    }
+
+    protected function notificarAdoptantesCoincidentes(Mascota $mascota): void
+    {
+        $usuarios = Usuario::query()
+            ->whereNotNull('id_user')
+            ->whereHas('perfilAdoptante', function ($query) use ($mascota) {
+                $query->where('completo', true)
+                    ->whereIn('desea_adoptar', [$mascota->especie, 'ambos', 'indiferente']);
+            })
+            ->with('user')
+            ->get()
+            ->pluck('user')
+            ->filter();
+
+        if ($usuarios->isNotEmpty()) {
+            Notification::send($usuarios, new MascotaPublicadaCoincide($mascota));
+        }
     }
 
     protected function rulesForStep(int $step): array

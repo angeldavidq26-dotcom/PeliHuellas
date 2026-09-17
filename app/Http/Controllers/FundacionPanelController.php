@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Adopcion;
 use App\Models\Fundacion;
 use App\Models\Mascota;
 use Illuminate\Support\Facades\DB;
@@ -92,6 +93,25 @@ class FundacionPanelController extends Controller
         ]);
     }
 
+    public function adopciones(): View
+    {
+        return view('pages.fundacion.adopciones', [
+            'fundacion' => $this->fundacion(),
+        ]);
+    }
+
+    public function adopcionShow(Adopcion $adopcion): View
+    {
+        $fundacion = $this->fundacion();
+
+        abort_unless($adopcion->solicitud->mascota->id_fundacion === $fundacion->id_fundacion, 404);
+
+        return view('pages.fundacion.adopcion-detalle', [
+            'fundacion' => $fundacion,
+            'adopcion' => $adopcion,
+        ]);
+    }
+
     public function verificacion(): View
     {
         return view('pages.fundacion.verificacion', [
@@ -109,6 +129,13 @@ class FundacionPanelController extends Controller
     public function solicitudes(): View
     {
         return view('pages.fundacion.solicitudes', [
+            'fundacion' => $this->fundacion(),
+        ]);
+    }
+
+    public function auditoria(): View
+    {
+        return view('pages.fundacion.auditoria', [
             'fundacion' => $this->fundacion(),
         ]);
     }

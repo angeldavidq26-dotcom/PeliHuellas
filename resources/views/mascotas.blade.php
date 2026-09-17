@@ -168,6 +168,9 @@
                                                     {{ __('Esterilizado') }}
                                                 </span>
                                             @endif
+                                            <div class="absolute right-3 bottom-3" wire:key="fav-toggle-{{ $mascota->id_mascota }}">
+                                                <livewire:favorito-toggle :mascota="$mascota" :key="'favorito-'.$mascota->id_mascota" />
+                                            </div>
                                         </div>
                                         <div class="p-4">
                                             <div class="mb-1 flex items-start justify-between gap-2">

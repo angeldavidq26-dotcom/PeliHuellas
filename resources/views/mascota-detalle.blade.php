@@ -88,6 +88,23 @@
                         </p>
                     </div>
 
+                    @if ($mascota->historialMedico->isNotEmpty())
+                        <div class="mt-8">
+                            <h2 class="pf-serif mb-2 text-lg font-bold">{{ __('Historial médico') }}</h2>
+                            <ul class="space-y-2">
+                                @foreach ($mascota->historialMedico as $registro)
+                                    <li class="flex items-start gap-3 rounded-lg bg-[#f8faf9] px-4 py-2.5 text-sm">
+                                        <span class="mt-0.5 rounded-full bg-[#dcece4] px-2 py-0.5 text-xs font-semibold text-[#234a3a] capitalize">
+                                            {{ str($registro->tipo)->replace('_', ' ') }}
+                                        </span>
+                                        <span class="flex-1 text-neutral-600">{{ $registro->observaciones }}</span>
+                                        <span class="shrink-0 text-xs text-neutral-400">{{ $registro->fecha->translatedFormat('d M Y') }}</span>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
                     <div class="mt-8">
                         <h2 class="pf-serif mb-2 text-lg font-bold">{{ __('Dónde encontrarnos') }}</h2>
                         <div class="flex aspect-[3/1] flex-col items-center justify-center gap-1 rounded-xl bg-[#eef2f0] text-neutral-600">
@@ -140,6 +157,10 @@
                         </div>
 
                         <livewire:solicitar-adopcion :mascota="$mascota" />
+
+                        <div class="mt-3">
+                            <livewire:favorito-toggle :mascota="$mascota" :compacto="false" />
+                        </div>
 
                         @if ($mascota->fundacion?->correo)
                             <flux:button

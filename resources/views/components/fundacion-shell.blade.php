@@ -12,9 +12,11 @@
         ['key' => 'panel', 'label' => __('Panel'), 'icon' => 'home', 'route' => route('fundacion.panel')],
         ['key' => 'mis-animales', 'label' => __('Mis animales'), 'icon' => 'heart', 'route' => route('fundacion.mis-animales'), 'badge' => $enEspera],
         ['key' => 'solicitudes', 'label' => __('Solicitudes'), 'icon' => 'document-text', 'route' => route('fundacion.solicitudes'), 'badge' => $solicitudesSinRevisar],
+        ['key' => 'adopciones', 'label' => __('Adopciones'), 'icon' => 'calendar-days', 'route' => route('fundacion.adopciones')],
         ['key' => 'publicar', 'label' => __('Publicar animal'), 'icon' => 'plus', 'route' => route('fundacion.publicar')],
         ['key' => 'verificacion', 'label' => __('Verificación'), 'icon' => 'check-circle', 'route' => route('fundacion.verificacion')],
         ['key' => 'sedes', 'label' => __('Sedes'), 'icon' => 'map-pin', 'route' => route('fundacion.sedes')],
+        ['key' => 'auditoria', 'label' => __('Auditoría'), 'icon' => 'shield-check', 'route' => route('fundacion.auditoria')],
         ['key' => 'configuracion', 'label' => __('Configuración'), 'icon' => 'cog', 'route' => route('fundacion.configuracion')],
     ];
 @endphp
@@ -34,15 +36,21 @@
     <body class="antialiased">
         <div class="flex min-h-screen bg-[#F3F6F4] text-neutral-900">
             <aside class="flex w-64 shrink-0 flex-col border-r border-neutral-200 bg-white px-4 py-6">
-                <a href="{{ route('fundacion.panel') }}" class="mb-6 flex items-center gap-3 px-2" wire:navigate>
-                    <span class="flex h-9 w-9 items-center justify-center rounded-lg bg-[#dcece4] text-[#1f5c47]">
-                        <flux:icon name="home" variant="micro" class="size-5" />
-                    </span>
-                    <span>
-                        <span class="block text-sm font-semibold text-neutral-900">{{ $fundacion->nombre }}</span>
-                        <span class="block text-xs text-neutral-500">{{ __('Fundación') }}</span>
-                    </span>
-                </a>
+                <div class="mb-6 flex items-center justify-between px-2">
+                    <a href="{{ route('fundacion.panel') }}" class="flex min-w-0 items-center gap-3" wire:navigate>
+                        <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#dcece4] text-[#1f5c47]">
+                            <flux:icon name="home" variant="micro" class="size-5" />
+                        </span>
+                        <span class="min-w-0">
+                            <span class="block truncate text-sm font-semibold text-neutral-900">{{ $fundacion->nombre }}</span>
+                            <span class="block text-xs text-neutral-500">{{ __('Fundación') }}</span>
+                        </span>
+                    </a>
+
+                    <div class="shrink-0">
+                        <livewire:notificaciones-menu />
+                    </div>
+                </div>
 
                 <nav class="flex flex-1 flex-col gap-1">
                     @foreach ($items as $item)
