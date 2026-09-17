@@ -23,17 +23,12 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         @include('partials.head')
-
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap">
-
-        <style>
-            .pf-serif { font-family: 'Playfair Display', Georgia, serif; }
-        </style>
     </head>
     <body class="antialiased">
         <div class="flex min-h-screen bg-[#F3F6F4] text-neutral-900">
             <aside class="flex w-64 shrink-0 flex-col border-r border-neutral-200 bg-white px-4 py-6">
+                <x-app-logo href="{{ route('home') }}" size="sm" class="mb-6 px-2" wire:navigate />
+
                 <a href="{{ route('fundacion.panel') }}" class="mb-6 flex items-center gap-3 px-2" wire:navigate>
                     <span class="flex h-9 w-9 items-center justify-center rounded-lg bg-[#dcece4] text-[#1f5c47]">
                         <flux:icon name="home" variant="micro" class="size-5" />

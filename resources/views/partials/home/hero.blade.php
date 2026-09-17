@@ -1,29 +1,40 @@
-<section class="relative overflow-hidden">
+<section class="relative h-[650px] overflow-hidden sm:h-[760px] md:h-[840px]">
     <div
         class="absolute inset-0 bg-cover bg-center"
-        style="background-image: linear-gradient(100deg, rgba(9,20,16,.72) 0%, rgba(9,20,16,.42) 38%, rgba(9,20,16,.08) 65%), linear-gradient(to top, rgba(9,20,16,.5) 0%, rgba(9,20,16,0) 40%), url('https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=1600&q=80');"
+        style="background-image: url('{{ asset('images/hero-mascotas.jpg') }}');"
+    ></div>
+    <div
+        class="absolute inset-0"
+        style="background-image: linear-gradient(to right, rgba(27,92,79,0.82) 0%, rgba(27,92,79,0.50) 50%, rgba(27,92,79,0.15) 100%);"
     ></div>
 
-    <div class="relative mx-auto max-w-3xl px-6 py-24 sm:py-32">
-        <div class="max-w-xl rounded-3xl border border-white/10 bg-black/20 p-8 backdrop-blur-md sm:p-10">
-            <p class="mb-3 text-xs font-semibold tracking-widest text-white/90 uppercase">
+    <div class="relative mx-auto flex h-full max-w-7xl items-center px-6">
+        <div class="w-full max-w-[680px] lg:-translate-x-[90px]">
+            <p class="mb-4 text-xs font-semibold tracking-widest text-white/90 uppercase">
                 {{ __('Conectamos, no ejecutamos') }}
             </p>
-            <h1 class="pf-serif mb-4 text-4xl leading-tight font-bold text-white sm:text-5xl">
+            <h1 class="pf-serif mb-6 text-[54px] leading-[1.05] font-bold text-white sm:text-[76px]">
                 {{ __('Cada animal merece un hogar. Cada hogar, el animal correcto.') }}
             </h1>
-            <p class="mb-8 text-white/85">
-                {{ __('Fundaciones y veterinarias verificadas en un solo lugar. Adoptá con seguridad y transparencia.') }}
+            <p class="mb-9 text-lg text-white/85 sm:text-xl">
+                {{ __('Fundaciones y veterinarias verificadas en un solo lugar. Adoptá con seguridad, cuidá con confianza.') }}
             </p>
 
-            <div class="flex flex-wrap gap-3">
-                <flux:button :href="route('mascotas')" wire:navigate>{{ __('Quiero adoptar') }}</flux:button>
-                <flux:button :href="route('register')" variant="ghost" class="bg-transparent! text-white! ring-1 ring-white/70!" wire:navigate>
-                    {{ __('Cuidar a mi mascota') }}
-                </flux:button>
-                <flux:button :href="route('solicitud-fundacion.formulario')" variant="primary" wire:navigate>
+            <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
+                <a
+                    href="{{ route('mascotas') }}"
+                    wire:navigate
+                    class="inline-flex h-16 items-center justify-center rounded-lg bg-white px-10 text-lg font-semibold text-[#1B5C4F] transition hover:bg-white/90"
+                >
+                    {{ __('Quiero adoptar') }}
+                </a>
+                <a
+                    href="{{ route('solicitud-fundacion.formulario') }}"
+                    wire:navigate
+                    class="inline-flex h-16 items-center justify-center rounded-lg bg-[#1B5C4F] px-10 text-lg font-semibold text-white transition hover:bg-[#154A40]"
+                >
                     {{ __('Registrar mi fundación') }}
-                </flux:button>
+                </a>
             </div>
         </div>
     </div>

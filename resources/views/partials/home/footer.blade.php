@@ -1,12 +1,7 @@
 <footer class="border-t border-neutral-200 bg-white">
     <div class="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-6 py-14 sm:grid-cols-2">
         <div>
-            <a href="{{ route('home') }}" class="mb-2 flex items-center gap-2" wire:navigate>
-                <span class="flex h-7 w-7 items-center justify-center rounded-lg bg-[#1f5c47]">
-                    <img src="{{ asset('footprint_huella_logo.svg') }}" alt="" class="h-3.5 w-3.5">
-                </span>
-                <span class="pf-serif text-lg font-bold text-[#163f31]">{{ config('app.name', 'PeliHuellas') }}</span>
-            </a>
+            <x-app-logo href="{{ route('home') }}" size="sm" class="mb-2" wire:navigate />
             <p class="max-w-sm text-sm text-neutral-500">{{ __('Conectamos fundaciones y veterinarias con familias responsables.') }}</p>
         </div>
 
