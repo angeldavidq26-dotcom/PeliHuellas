@@ -4,45 +4,24 @@
         @include('partials.head')
     </head>
     <body class="min-h-screen bg-white antialiased dark:bg-linear-to-b dark:from-neutral-950 dark:to-neutral-900">
-        <div class="relative grid h-dvh flex-col items-center justify-center px-8 sm:px-0 lg:max-w-none lg:grid-cols-2 lg:px-0">
-            <div class="relative hidden h-full flex-col justify-end overflow-hidden p-10 text-white lg:flex">
-                <div
-                    class="absolute inset-0 bg-cover bg-center"
-                    style="background-image: linear-gradient(to top, rgba(9,20,16,.78) 0%, rgba(9,20,16,.22) 50%, rgba(9,20,16,.03) 100%), url('https://images.unsplash.com/photo-1560807707-8cc77767d783?auto=format&fit=crop&w=1200&q=80');"
-                ></div>
+        <div class="grid min-h-dvh lg:grid-cols-[45fr_55fr]">
+            <div class="relative hidden h-dvh flex-col overflow-hidden p-10 text-white lg:flex">
+                <img
+                    src="{{ asset('images/registrar.jpg') }}"
+                    alt="Perro abrazando a un gato en el campo"
+                    loading="eager"
+                    class="absolute inset-0 h-full w-full object-cover object-[center_40%]"
+                >
+                <div class="absolute inset-x-0 top-0 h-[35%] bg-linear-to-b from-black/25 via-transparent to-transparent"></div>
 
-                <x-app-logo href="{{ route('home') }}" size="lg" light class="relative z-20" wire:navigate />
-
-                <div class="relative z-20 mt-auto max-w-md rounded-3xl border border-white/10 bg-black/15 p-6 backdrop-blur-md">
-                    <h2 class="mb-3 text-3xl leading-tight font-bold" style="font-family: 'Playfair Display', serif;">
-                        Cada animal merece un hogar. Cada hogar, el animal correcto.
-                    </h2>
-                    <p class="mb-8 text-white/85">
-                        Fundaciones y veterinarias verificadas. Adopciones con seguridad y transparencia.
-                    </p>
-
-                    <div class="flex gap-8">
-                        <div>
-                            <strong class="block text-2xl font-bold" style="font-family: 'Playfair Display', serif;">3.841</strong>
-                            <span class="text-sm text-white/75">Animales</span>
-                        </div>
-                        <div>
-                            <strong class="block text-2xl font-bold" style="font-family: 'Playfair Display', serif;">127</strong>
-                            <span class="text-sm text-white/75">Fundaciones</span>
-                        </div>
-                        <div>
-                            <strong class="block text-2xl font-bold" style="font-family: 'Playfair Display', serif;">89</strong>
-                            <span class="text-sm text-white/75">Veterinarias</span>
-                        </div>
-                    </div>
-                </div>
+                <x-app-logo href="{{ route('home') }}" size="xl" light class="relative z-20" wire:navigate />
             </div>
-            <div class="w-full lg:p-8">
-                <div class="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
+            <div class="flex min-h-dvh w-full items-center justify-center px-6 py-12 md:px-12 lg:px-16">
+                <div class="mx-auto flex w-full max-w-[440px] flex-col justify-center gap-6 lg:max-w-[520px]">
                     <x-app-logo href="{{ route('home') }}" size="sm" class="z-20 justify-center lg:hidden" wire:navigate />
                     {{ $slot }}
 
-                    <a href="{{ route('home') }}" class="block text-center text-sm text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200" wire:navigate>
+                    <a href="{{ route('home') }}" class="block text-center text-[15px] text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200" wire:navigate>
                         &larr; Volver al inicio
                     </a>
                 </div>
