@@ -10,6 +10,7 @@
         'sm' => ['badge' => 'h-7 w-7', 'icon' => 'h-3.5 w-3.5', 'text' => 'text-lg'],
         'md' => ['badge' => 'h-8 w-8', 'icon' => 'h-4 w-4', 'text' => 'text-lg'],
         'lg' => ['badge' => 'h-9 w-9', 'icon' => 'h-5 w-5', 'text' => 'text-xl'],
+        'xl' => ['badge' => 'h-16 w-16', 'icon' => 'h-10 w-10', 'text' => 'text-[26px]'],
     ];
     $s = $sizes[$size] ?? $sizes['md'];
     $textColor = $light ? 'text-white' : 'text-[#1B5C4F]';
