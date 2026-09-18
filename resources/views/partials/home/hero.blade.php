@@ -1,7 +1,7 @@
 <section class="relative h-[650px] overflow-hidden sm:h-[760px] md:h-[840px]">
     <div
         class="absolute inset-0 bg-cover bg-center"
-        style="background-image: url('{{ asset('images/hero-mascotas.jpg') }}');"
+        style="background-image: url('{{ asset('images/UHJpbmNpcGFsTWFzY290YXM=.jpg') }}');"
     ></div>
     <div
         class="absolute inset-0"
