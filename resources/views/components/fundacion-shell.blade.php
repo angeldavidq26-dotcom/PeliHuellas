@@ -63,10 +63,13 @@
                     @endforeach
                 </nav>
 
-                <a href="{{ route('home') }}" class="flex items-center gap-2 px-3 py-2 text-sm text-neutral-500 hover:text-neutral-700" wire:navigate>
-                    <flux:icon name="arrow-left" variant="micro" class="size-4" />
-                    {{ __('Salir al sitio') }}
-                </a>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="flex w-full items-center gap-2 px-3 py-2 text-sm text-neutral-500 hover:text-neutral-700">
+                        <flux:icon name="arrow-left" variant="micro" class="size-4" />
+                        {{ __('Salir al sitio') }}
+                    </button>
+                </form>
             </aside>
 
             <main class="flex-1 overflow-x-hidden px-10 py-8">

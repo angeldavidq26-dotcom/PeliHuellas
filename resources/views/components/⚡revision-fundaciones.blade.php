@@ -1,12 +1,23 @@
 <?php
 
+use App\Models\Auditoria;
 use App\Models\Fundacion;
+use App\Models\Usuario;
 use Flux\Flux;
 use Illuminate\Support\Collection;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 
 new class extends Component {
+    public ?int $seleccionadaId = null;
+
+    public string $rechazoMotivo = '';
+
+    public function mount(?int $fundacion = null): void
+    {
+        $this->seleccionadaId = $fundacion;
+    }
+
     #[Computed]
     public function pendientes(): Collection
     {
@@ -28,119 +39,259 @@ new class extends Component {
             ->get();
     }
 
-    public function decidir(int $idFundacion, string $decision): void
+    #[Computed]
+    public function seleccionada(): ?Fundacion
     {
-        abort_unless(in_array($decision, ['aprobada', 'rechazada'], true), 422);
+        if ($this->seleccionadaId) {
+            $encontrada = $this->pendientes->firstWhere('id_fundacion', $this->seleccionadaId)
+                ?? $this->revisadas->firstWhere('id_fundacion', $this->seleccionadaId);
 
+            if ($encontrada) {
+                return $encontrada;
+            }
+        }
+
+        return $this->pendientes->first();
+    }
+
+    public function seleccionar(int $idFundacion): void
+    {
+        $this->seleccionadaId = $idFundacion;
+    }
+
+    public function aprobar(int $idFundacion): void
+    {
         $fundacion = Fundacion::query()->where('estado_verificacion', 'pendiente')->findOrFail($idFundacion);
-        $fundacion->update(['estado_verificacion' => $decision]);
 
-        unset($this->pendientes, $this->revisadas);
+        $fundacion->update([
+            'estado_verificacion' => 'aprobada',
+            'motivo_rechazo' => null,
+        ]);
 
-        Flux::toast(
-            variant: $decision === 'aprobada' ? 'success' : 'danger',
-            text: $decision === 'aprobada'
-                ? __(':nombre fue aprobada.', ['nombre' => $fundacion->nombre])
-                : __(':nombre fue rechazada.', ['nombre' => $fundacion->nombre]),
-        );
+        $this->registrarAuditoria('fundacion.aprobada', $fundacion);
+
+        $this->seleccionadaId = null;
+        unset($this->pendientes, $this->revisadas, $this->seleccionada);
+
+        Flux::toast(variant: 'success', text: __(':nombre fue aprobada.', ['nombre' => $fundacion->nombre]));
+    }
+
+    public function abrirRechazo(int $idFundacion): void
+    {
+        $this->seleccionadaId = $idFundacion;
+        $this->rechazoMotivo = '';
+
+        Flux::modal('rechazar-fundacion')->show();
+    }
+
+    public function confirmarRechazo(): void
+    {
+        $this->validate([
+            'rechazoMotivo' => ['required', 'string', 'max:500'],
+        ]);
+
+        $fundacion = Fundacion::query()->where('estado_verificacion', 'pendiente')->findOrFail($this->seleccionadaId);
+
+        $fundacion->update([
+            'estado_verificacion' => 'rechazada',
+            'motivo_rechazo' => $this->rechazoMotivo,
+        ]);
+
+        $this->registrarAuditoria('fundacion.rechazada', $fundacion, ['motivo' => $this->rechazoMotivo]);
+
+        $this->seleccionadaId = null;
+        $this->rechazoMotivo = '';
+        unset($this->pendientes, $this->revisadas, $this->seleccionada);
+
+        Flux::toast(variant: 'danger', text: __(':nombre fue rechazada.', ['nombre' => $fundacion->nombre]));
+
+        $this->dispatch('close-modal', name: 'rechazar-fundacion');
+    }
+
+    protected function registrarAuditoria(string $accion, Fundacion $fundacion, array $datos = []): void
+    {
+        $usuario = Usuario::paraUser(auth()->user());
+
+        Auditoria::registrar($accion, $fundacion, $usuario?->id_usuario, $datos);
     }
 }; ?>
 
 <div>
-    <div class="mb-8">
-        <p class="mb-1 text-xs font-semibold tracking-widest text-[#1f5c47] uppercase">{{ __('Panel interno') }}</p>
-        <h1 class="pf-serif text-3xl font-bold">{{ __('Solicitudes de fundaciones') }}</h1>
-        <p class="text-neutral-500">{{ __('Revisá cada solicitud y decidí si la fundación queda aprobada para publicar animales.') }}</p>
+    <div class="mb-6">
+        <h1 class="pf-serif text-3xl font-bold">{{ __('Verificaciones') }}</h1>
+        <p class="text-neutral-500">{{ __('Revisa y aprueba o rechaza solicitudes de organizaciones') }}</p>
     </div>
 
-    <h2 class="pf-serif mb-3 text-lg font-bold">
-        {{ __('Pendientes') }}
-        <span class="ml-1 text-sm font-normal text-neutral-400">({{ $this->pendientes->count() }})</span>
-    </h2>
+    <div class="mb-6 flex items-start gap-3 rounded-xl border border-[#bfe0d0] bg-[#f2f8f5] px-5 py-4 text-sm text-[#1f5c47]">
+        <flux:icon name="information-circle" variant="micro" class="size-5 shrink-0" />
+        <p>
+            <span class="font-semibold">{{ __('Aviso importante:') }}</span>
+            {{ __('Una fundación aprobada puede publicar de inmediato y sus adoptantes pueden contactarla directamente. La verificación es la única protección del usuario contra organizaciones falsas.') }}
+        </p>
+    </div>
 
-    @if ($this->pendientes->isEmpty())
-        <div class="mb-10 rounded-xl border border-dashed border-neutral-300 bg-white p-10 text-center text-neutral-500">
-            {{ __('No hay solicitudes pendientes por revisar.') }}
+    <div class="grid grid-cols-1 gap-6 lg:grid-cols-[280px_1fr]">
+        <div>
+            <p class="mb-2 text-xs font-semibold tracking-widest text-neutral-500 uppercase">
+                {{ __('Pendientes') }} ({{ $this->pendientes->count() }})
+            </p>
+
+            <div class="mb-4 space-y-2">
+                @forelse ($this->pendientes as $fundacion)
+                    @php $dias = $fundacion->fecha_registro->diffInDays(now()); @endphp
+                    <button
+                        type="button"
+                        wire:click="seleccionar({{ $fundacion->id_fundacion }})"
+                        wire:key="pendiente-{{ $fundacion->id_fundacion }}"
+                        class="w-full rounded-xl border px-4 py-3 text-left {{ $this->seleccionada?->id_fundacion === $fundacion->id_fundacion ? 'border-[#1f5c47] bg-[#f2f8f5]' : 'border-neutral-200 bg-white hover:bg-neutral-50' }}"
+                    >
+                        <p class="font-semibold text-[#1f5c47]">{{ $fundacion->nombre }}</p>
+                        <p class="text-xs {{ $dias >= 5 ? 'text-amber-600' : 'text-neutral-500' }}">
+                            {{ trans_choice(':count día esperando|:count días esperando', $dias, ['count' => $dias]) }}
+                            @if ($dias >= 5)
+                                <flux:icon name="exclamation-triangle" variant="micro" class="inline size-3" />
+                            @endif
+                        </p>
+                    </button>
+                @empty
+                    <p class="text-sm text-neutral-500">{{ __('No hay solicitudes pendientes.') }}</p>
+                @endforelse
+            </div>
+
+            <details class="group" @if ($this->revisadas->isNotEmpty()) open @endif>
+                <summary class="cursor-pointer text-xs font-semibold tracking-widest text-neutral-500 uppercase">
+                    {{ __('Ya revisadas') }} ({{ $this->revisadas->count() }})
+                </summary>
+                <div class="mt-2 space-y-2">
+                    @foreach ($this->revisadas as $fundacion)
+                        <button
+                            type="button"
+                            wire:click="seleccionar({{ $fundacion->id_fundacion }})"
+                            wire:key="revisada-{{ $fundacion->id_fundacion }}"
+                            class="w-full rounded-xl border px-4 py-3 text-left {{ $this->seleccionada?->id_fundacion === $fundacion->id_fundacion ? 'border-[#1f5c47] bg-[#f2f8f5]' : 'border-neutral-200 bg-white hover:bg-neutral-50' }}"
+                        >
+                            <p class="font-semibold">{{ $fundacion->nombre }}</p>
+                            <span @class([
+                                'rounded-full px-2 py-0.5 text-xs font-semibold',
+                                'bg-[#dcece4] text-[#234a3a]' => $fundacion->estado_verificacion === 'aprobada',
+                                'bg-red-100 text-red-700' => $fundacion->estado_verificacion === 'rechazada',
+                            ])>
+                                {{ $fundacion->estado_verificacion === 'aprobada' ? __('Aprobada') : __('Rechazada') }}
+                            </span>
+                        </button>
+                    @endforeach
+                </div>
+            </details>
         </div>
-    @else
-        <div class="mb-10 space-y-4">
-            @foreach ($this->pendientes as $fundacion)
-                <div wire:key="pendiente-{{ $fundacion->id_fundacion }}" class="rounded-xl border border-amber-200 bg-white p-5">
-                    <div class="flex flex-wrap items-start justify-between gap-4">
-                        <div>
-                            <div class="flex items-center gap-2">
-                                <h3 class="font-semibold">{{ $fundacion->nombre }}</h3>
-                                <span class="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-semibold text-amber-700">{{ __('Pendiente') }}</span>
-                            </div>
-                            <p class="text-sm text-neutral-500">
-                                {{ __('NIT') }} {{ $fundacion->nit }} · {{ $fundacion->sedes->first()?->ciudad }} · {{ $fundacion->correo }} · {{ $fundacion->telefono }}
-                            </p>
-                            @if ($fundacion->capacidad)
-                                <p class="text-sm text-neutral-500">{{ __('Capacidad aprox.: :n animales', ['n' => $fundacion->capacidad]) }}</p>
-                            @endif
-                            @if ($fundacion->descripcion)
-                                <p class="mt-2 max-w-2xl text-sm text-neutral-700">{{ $fundacion->descripcion }}</p>
-                            @endif
-                            <p class="mt-2 text-xs text-neutral-400">
-                                {{ __('Recibida el :fecha', ['fecha' => $fundacion->fecha_registro->translatedFormat('d M Y, H:i')]) }}
-                            </p>
-                        </div>
 
-                        <div class="flex shrink-0 gap-2">
-                            <flux:button
-                                size="sm"
-                                variant="danger"
-                                wire:click="decidir({{ $fundacion->id_fundacion }}, 'rechazada')"
-                                wire:confirm="{{ __('¿Rechazar la solicitud de :nombre?', ['nombre' => $fundacion->nombre]) }}"
-                            >
-                                {{ __('Rechazar') }}
-                            </flux:button>
-                            <flux:button
-                                size="sm"
-                                variant="primary"
-                                wire:click="decidir({{ $fundacion->id_fundacion }}, 'aprobada')"
-                            >
-                                {{ __('Aprobar') }}
-                            </flux:button>
+        <div>
+            @if (! $this->seleccionada)
+                <div class="rounded-xl border border-dashed border-neutral-300 bg-white p-10 text-center text-neutral-500">
+                    {{ __('No hay ninguna fundación para revisar.') }}
+                </div>
+            @else
+                @php $fundacion = $this->seleccionada; @endphp
+                <div class="rounded-xl border border-neutral-200 bg-white p-6">
+                    <div class="mb-5 flex items-center gap-3">
+                        <img
+                            src="{{ $fundacion->logo_url ?? 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=100&q=80' }}"
+                            alt="{{ $fundacion->nombre }}"
+                            class="size-12 rounded-lg object-cover"
+                        >
+                        <div>
+                            <h2 class="pf-serif text-xl font-bold">{{ $fundacion->nombre }}</h2>
+                            <p class="text-sm text-neutral-500">{{ $fundacion->nit }}</p>
                         </div>
                     </div>
+
+                    <div class="mb-5 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                        <div>
+                            <p class="text-xs font-semibold tracking-widest text-neutral-500 uppercase">{{ __('Correo') }}</p>
+                            <p class="text-sm text-[#1f5c47]">{{ $fundacion->correo }}</p>
+                        </div>
+                        <div>
+                            <p class="text-xs font-semibold tracking-widest text-neutral-500 uppercase">{{ __('Teléfono') }}</p>
+                            <p class="text-sm">{{ $fundacion->telefono }}</p>
+                        </div>
+                        <div>
+                            <p class="text-xs font-semibold tracking-widest text-neutral-500 uppercase">{{ __('Capacidad declarada') }}</p>
+                            <p class="text-sm">{{ $fundacion->capacidad ? __(':n animales', ['n' => $fundacion->capacidad]) : __('Sin especificar') }}</p>
+                        </div>
+                        <div>
+                            <p class="text-xs font-semibold tracking-widest text-neutral-500 uppercase">{{ __('Fecha de solicitud') }}</p>
+                            <p class="text-sm">{{ $fundacion->fecha_registro->format('Y-m-d') }}</p>
+                        </div>
+                    </div>
+
+                    @if ($fundacion->descripcion)
+                        <div class="mb-5">
+                            <p class="text-xs font-semibold tracking-widest text-neutral-500 uppercase">{{ __('Descripción') }}</p>
+                            <p class="text-sm text-neutral-700">{{ $fundacion->descripcion }}</p>
+                        </div>
+                    @endif
+
+                    @if ($fundacion->estado_verificacion === 'rechazada' && $fundacion->motivo_rechazo)
+                        <div class="mb-5 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800">
+                            <p class="font-semibold">{{ __('Motivo del rechazo') }}</p>
+                            <p>{{ $fundacion->motivo_rechazo }}</p>
+                        </div>
+                    @endif
+
+                    <div class="mb-6">
+                        <p class="mb-2 text-xs font-semibold tracking-widest text-neutral-500 uppercase">{{ __('Documentos cargados') }}</p>
+                        <div class="divide-y divide-neutral-100 rounded-lg border border-neutral-200">
+                            <div class="flex items-center justify-between px-4 py-3 text-sm">
+                                <span>{{ __('Certificado de existencia') }}</span>
+                                @if ($fundacion->documento_certificado_url)
+                                    <a href="{{ $fundacion->documento_certificado_url }}" target="_blank" class="font-medium text-[#1f5c47]">{{ __('Ver documento') }}</a>
+                                @else
+                                    <span class="text-neutral-400">{{ __('Sin cargar') }}</span>
+                                @endif
+                            </div>
+                            <div class="flex items-center justify-between px-4 py-3 text-sm">
+                                <span>{{ __('Documento representante legal') }}</span>
+                                @if ($fundacion->documento_representante_url)
+                                    <a href="{{ $fundacion->documento_representante_url }}" target="_blank" class="font-medium text-[#1f5c47]">{{ __('Ver documento') }}</a>
+                                @else
+                                    <span class="text-neutral-400">{{ __('Sin cargar') }}</span>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+
+                    @if ($fundacion->estado_verificacion === 'pendiente')
+                        <div class="flex gap-3">
+                            <flux:button variant="primary" class="flex-1" wire:click="aprobar({{ $fundacion->id_fundacion }})">
+                                {{ __('Aprobar fundación') }}
+                            </flux:button>
+                            <flux:button variant="danger" class="flex-1" wire:click="abrirRechazo({{ $fundacion->id_fundacion }})">
+                                {{ __('Rechazar') }}
+                            </flux:button>
+                        </div>
+                    @endif
                 </div>
-            @endforeach
+            @endif
         </div>
-    @endif
+    </div>
 
-    <h2 class="pf-serif mb-3 text-lg font-bold">{{ __('Revisadas recientemente') }}</h2>
+    <flux:modal name="rechazar-fundacion" focusable class="max-w-md">
+        <form wire:submit="confirmarRechazo" class="space-y-6">
+            <div>
+                <flux:heading size="lg">{{ __('Rechazar fundación') }}</flux:heading>
+                <flux:subheading>{{ __('Indica el motivo. La fundación recibirá esta información para corregir su solicitud.') }}</flux:subheading>
+            </div>
 
-    @if ($this->revisadas->isEmpty())
-        <p class="text-sm text-neutral-500">{{ __('Todavía no revisaste ninguna solicitud.') }}</p>
-    @else
-        <div class="overflow-hidden rounded-xl border border-neutral-200 bg-white">
-            <table class="w-full text-left text-sm">
-                <thead class="border-b border-neutral-100 text-xs tracking-widest text-neutral-500 uppercase">
-                    <tr>
-                        <th class="px-5 py-3 font-medium">{{ __('Fundación') }}</th>
-                        <th class="px-5 py-3 font-medium">{{ __('Ciudad') }}</th>
-                        <th class="px-5 py-3 font-medium">{{ __('Estado') }}</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-neutral-100">
-                    @foreach ($this->revisadas as $fundacion)
-                        <tr wire:key="revisada-{{ $fundacion->id_fundacion }}">
-                            <td class="px-5 py-3 font-medium">{{ $fundacion->nombre }}</td>
-                            <td class="px-5 py-3 text-neutral-600">{{ $fundacion->sedes->first()?->ciudad }}</td>
-                            <td class="px-5 py-3">
-                                <span @class([
-                                    'rounded-full px-2.5 py-1 text-xs font-semibold',
-                                    'bg-[#dcece4] text-[#234a3a]' => $fundacion->estado_verificacion === 'aprobada',
-                                    'bg-red-100 text-red-700' => $fundacion->estado_verificacion === 'rechazada',
-                                ])>
-                                    {{ $fundacion->estado_verificacion === 'aprobada' ? __('Aprobada') : __('Rechazada') }}
-                                </span>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-    @endif
+            <flux:textarea wire:model="rechazoMotivo" :placeholder="__('Ej: La documentación del representante legal está vencida...')" rows="4" />
+            @error('rechazoMotivo')
+                <p class="text-sm text-red-600">{{ $message }}</p>
+            @enderror
+
+            <div class="flex justify-end space-x-2 rtl:space-x-reverse">
+                <flux:modal.close>
+                    <flux:button variant="filled">{{ __('Cancelar') }}</flux:button>
+                </flux:modal.close>
+                <flux:button variant="danger" type="submit">{{ __('Confirmar rechazo') }}</flux:button>
+            </div>
+        </form>
+    </flux:modal>
 </div>

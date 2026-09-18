@@ -14,8 +14,20 @@ class LoginResponse implements LoginResponseContract
 
     public function toResponse($request): Response
     {
-        return $request->wantsJson()
-            ? new JsonResponse(['two_factor' => false], 200)
-            : redirect()->intended($this->redirectPathForCurrentTeam($request, Fortify::redirects('login')));
+        if ($request->wantsJson()) {
+            return new JsonResponse(['two_factor' => false], 200);
+        }
+
+        $role = $request->user()?->role;
+
+        if ($role === 'administracion') {
+            return redirect()->intended(route('admin.panel'));
+        }
+
+        if ($role === 'fundacion') {
+            return redirect()->intended(route('fundacion.panel'));
+        }
+
+        return redirect()->intended($this->redirectPathForCurrentTeam($request, Fortify::redirects('login')));
     }
 }

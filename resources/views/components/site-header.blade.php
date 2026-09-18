@@ -28,7 +28,14 @@
 
             <livewire:notificaciones-menu />
 
-            <flux:button :href="route('dashboard')" variant="primary" wire:navigate>
+            @php
+                $panelRoute = match (auth()->user()->role) {
+                    'administracion' => route('admin.panel'),
+                    'fundacion' => route('fundacion.panel'),
+                    default => route('dashboard'),
+                };
+            @endphp
+            <flux:button :href="$panelRoute" variant="primary" wire:navigate>
                 {{ __('Ir a mi panel') }}
             </flux:button>
         @elseif ($guestActions)

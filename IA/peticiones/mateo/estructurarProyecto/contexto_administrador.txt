@@ -1,0 +1,14 @@
+se solicita generar esta interfaz de animales de adopcion teniendo en cuenta las capturas de IA\peticiones\mateo\estructurarProyecto\contexto_administracion
+
+
+arbol contexto: 
+
+C: contexto_administracion
+    aprobacion_fundacion.png
+    dahsboard.png
+    fundaciones_registradas.png
+    mascotas_registradas.png
+    rechazo_fundacion.png
+    solicitudes_adopcion.png
+    usuarios_registrados.png
+    

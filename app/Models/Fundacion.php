@@ -27,6 +27,7 @@ class Fundacion extends Model
         'documentos_enviados_at',
         'capacidad',
         'estado_verificacion',
+        'motivo_rechazo',
         'fecha_registro',
     ];
 

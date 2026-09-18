@@ -1,10 +1,12 @@
 <?php
 
-use App\Http\Controllers\AdminFundacionController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdoptanteController;
 use App\Http\Controllers\FundacionPanelController;
 use App\Http\Controllers\MascotaController;
 use App\Http\Controllers\SolicitudFundacionController;
+use App\Http\Middleware\EnsureAdmin;
+use App\Http\Middleware\EnsureFundacion;
 use App\Http\Middleware\EnsureTeamMembership;
 use Illuminate\Support\Facades\Route;
 
@@ -28,7 +30,7 @@ Route::middleware(['auth'])->group(function () {
     Route::view('/mis-citas', 'pages.placeholder', ['titulo' => __('Mis citas')])->name('citas');
 });
 
-Route::prefix('panel-fundacion')->name('fundacion.')->group(function () {
+Route::prefix('panel-fundacion')->name('fundacion.')->middleware(['auth', EnsureFundacion::class])->group(function () {
     Route::get('/', [FundacionPanelController::class, 'index'])->name('panel');
     Route::get('/mis-animales', [FundacionPanelController::class, 'misAnimales'])->name('mis-animales');
     Route::get('/mis-animales/{mascota}/editar', [FundacionPanelController::class, 'editarAnimal'])->name('mis-animales.editar');
@@ -42,8 +44,13 @@ Route::prefix('panel-fundacion')->name('fundacion.')->group(function () {
     Route::get('/auditoria', [FundacionPanelController::class, 'auditoria'])->name('auditoria');
 });
 
-Route::prefix('panel-admin')->name('admin.')->group(function () {
-    Route::get('/fundaciones', [AdminFundacionController::class, 'index'])->name('fundaciones');
+Route::prefix('panel-admin')->name('admin.')->middleware(['auth', EnsureAdmin::class])->group(function () {
+    Route::get('/', [AdminController::class, 'panel'])->name('panel');
+    Route::get('/verificaciones', [AdminController::class, 'verificaciones'])->name('verificaciones');
+    Route::get('/solicitudes', [AdminController::class, 'solicitudes'])->name('solicitudes');
+    Route::get('/usuarios', [AdminController::class, 'usuarios'])->name('usuarios');
+    Route::get('/fundaciones', [AdminController::class, 'fundaciones'])->name('fundaciones');
+    Route::get('/razas', [AdminController::class, 'razas'])->name('razas');
 });
 
 Route::prefix('{current_team}')
