@@ -22,7 +22,7 @@ class RoleUserSeeder extends Seeder
             ['email' => 'admin@pelihuellas.com'],
             [
                 'name' => 'Administrador',
-                'password' => bcrypt('password'),
+                'password' => 'password',
                 'role' => 'administracion',
                 'email_verified_at' => now(),
             ]
@@ -32,7 +32,7 @@ class RoleUserSeeder extends Seeder
             ['email' => 'fundacion@pelihuellas.com'],
             [
                 'name' => 'Fundación Demo',
-                'password' => bcrypt('password'),
+                'password' => 'password',
                 'role' => 'fundacion',
                 'email_verified_at' => now(),
             ]
@@ -42,7 +42,7 @@ class RoleUserSeeder extends Seeder
             ['email' => 'usuario@pelihuellas.com'],
             [
                 'name' => 'Usuario Demo',
-                'password' => bcrypt('password'),
+                'password' => 'password',
                 'role' => 'usuario',
                 'email_verified_at' => now(),
             ]
