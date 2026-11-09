@@ -6,6 +6,11 @@
         {{--
             Los tamaños usan clamp() con vh para que la pantalla completa quepa sin scroll
             en escritorio (desde ~720px de alto útil) y crezca en monitores grandes.
+
+            Panel izquierdo: la altura se reparte con un "presupuesto" en vh (titulo, beneficios y
+            estadisticas dejan libre ~17vh). Ese espacio lo ocupa .ph-auth__centro, que centra la
+            frase emocional entre los beneficios y las estadisticas sin posiciones absolutas.
+            Si la pantalla es baja, la frase se simplifica o se oculta (media queries max-height).
         --}}
         <style>
             .ph-auth {
@@ -15,6 +20,10 @@
                 --ph-verde-suave: #E8F5F0;
                 --ph-tinta: #0F3B33;
                 --ph-gris: #6B7C78;
+
+                /* Paleta del panel izquierdo */
+                --ph-izq-principal: #1B5C4F;
+                --ph-izq-profundo: #073F36;
             }
 
             /* ---------- Columna izquierda ---------- */
@@ -35,7 +44,7 @@
              * El max() con vw garantiza que en pantallas muy anchas llegue al borde derecho.
              */
             .ph-auth__foto {
-                --alto: max(118vh, 54vw);
+                --alto: max(122vh, 56vw);
                 position: absolute;
                 bottom: 0;
                 left: calc(64% - var(--alto) / 1.5 * 0.38);
@@ -46,12 +55,13 @@
                 mask-image: linear-gradient(to right, transparent 0%, #000 34%);
             }
 
+            /* Degradado verde oscuro de izquierda a derecha + base oscura para estadisticas y lema. */
             .ph-auth__velo {
                 position: absolute;
                 inset: 0;
                 background:
-                    linear-gradient(to top, rgba(0, 48, 41, 0.6) 0%, rgba(0, 48, 41, 0) 38%),
-                    linear-gradient(to right, rgba(0, 72, 62, 0.84) 0%, rgba(0, 72, 62, 0.6) 36%, rgba(0, 72, 62, 0.2) 60%, rgba(0, 72, 62, 0.1) 100%);
+                    linear-gradient(to top, rgba(7, 63, 54, 0.7) 0%, rgba(7, 63, 54, 0.25) 30%, rgba(7, 63, 54, 0) 48%),
+                    linear-gradient(to right, rgba(7, 63, 54, 0.9) 0%, rgba(7, 63, 54, 0.66) 36%, rgba(7, 63, 54, 0.22) 60%, rgba(7, 63, 54, 0.1) 100%);
             }
 
             .ph-auth__izq {
@@ -60,7 +70,10 @@
                 display: flex;
                 flex-direction: column;
                 height: 100%;
-                padding: clamp(16px, 2.7vh, 28px) clamp(28px, 3.2vw, 60px) clamp(24px, 5.5vh, 56px);
+                padding:
+                    clamp(16px, 2.4vh, 30px)
+                    clamp(28px, 3.2vw, 76px)
+                    clamp(22px, 4.2vh, 60px);
                 color: #fff;
             }
 
@@ -69,20 +82,20 @@
                 align-items: center;
                 align-self: flex-start;
                 gap: 12px;
-                height: clamp(44px, 7vh, 66px);
-                padding: 0 clamp(22px, 2vw, 34px);
+                height: clamp(44px, 6.4vh, 68px);
+                padding: 0 clamp(22px, 2vw, 36px);
                 border: 1px solid rgba(168, 230, 163, 0.45);
                 border-radius: 999px;
-                background: rgba(0, 85, 72, 0.55);
+                background: rgba(7, 63, 54, 0.55);
                 backdrop-filter: blur(6px);
                 color: #fff;
-                font-size: clamp(15px, 2.2vh, 20px);
+                font-size: clamp(15px, 2.1vh, 20px);
                 font-weight: 600;
                 transition: background-color 0.2s ease;
             }
 
             .ph-auth__volver:hover {
-                background: rgba(0, 85, 72, 0.85);
+                background: rgba(7, 63, 54, 0.85);
             }
 
             .ph-auth__volver svg {
@@ -91,8 +104,11 @@
             }
 
             .ph-auth__marca {
-                max-width: 820px;
-                margin-top: clamp(20px, 5vh, 56px);
+                margin-top: clamp(10px, 1.5vh, 22px);
+                max-width: 32em; /* Ampliado para permitir que el texto respire y se extienda a la derecha */
+                font-size: clamp(16px, min(2.05vh, 1.45vw), 27px);
+                line-height: 1.45;
+                color: rgba(255, 255, 255, 0.92);
             }
 
             .ph-auth__logo {
@@ -121,9 +137,9 @@
                 line-height: 1;
             }
 
-            /* Crece con el alto, pero el tope por ancho evita que llegue a las caras de la foto. */
+            /* Título ensanchado horizontalmente y ligeramente más grande */
             .ph-auth__titulo {
-                font-size: clamp(36px, min(7.4vh, 3.62vw), 80px);
+                font-size: clamp(38px, min(7vh, 4.2vw), 96px);
                 font-weight: 700;
                 line-height: 1.03;
             }
@@ -134,9 +150,9 @@
             }
 
             .ph-auth__descripcion {
-                max-width: 30em;
-                margin-top: clamp(10px, 1.8vh, 20px);
-                font-size: clamp(16px, 2.25vh, 22px);
+                max-width: 32em;
+                margin-top: clamp(10px, 1.5vh, 22px);
+                font-size: clamp(16px, min(2.05vh, 1.45vw), 27px);
                 line-height: 1.45;
                 color: rgba(255, 255, 255, 0.92);
             }
@@ -144,14 +160,14 @@
             .ph-auth__beneficios {
                 display: flex;
                 flex-direction: column;
-                gap: clamp(10px, 1.7vh, 18px);
-                margin-top: clamp(16px, 3vh, 34px);
+                gap: clamp(10px, 1.6vh, 26px);
+                margin-top: clamp(14px, 2.6vh, 40px);
             }
 
             .ph-auth__beneficio {
                 display: flex;
                 align-items: center;
-                gap: 16px;
+                gap: clamp(14px, 1.2vw, 24px);
             }
 
             .ph-auth__beneficio-icono {
@@ -159,11 +175,11 @@
                 flex: none;
                 align-items: center;
                 justify-content: center;
-                width: clamp(48px, 7.2vh, 70px);
-                height: clamp(48px, 7.2vh, 70px);
-                border: 1px solid rgba(168, 230, 163, 0.35);
+                width: clamp(50px, min(6.6vh, 4vw), 96px);
+                height: clamp(50px, min(6.6vh, 4vw), 96px);
+                border: 1px solid rgba(168, 230, 163, 0.4);
                 border-radius: 50%;
-                background: rgba(0, 85, 72, 0.72);
+                background: rgba(27, 92, 79, 0.78);
                 color: var(--ph-verde-claro);
             }
 
@@ -174,32 +190,54 @@
 
             .ph-auth__beneficio > div > strong {
                 display: block;
-                font-size: clamp(16px, 2.2vh, 21px);
+                font-size: clamp(16.5px, min(2.3vh, 1.45vw), 28px);
                 font-weight: 700;
                 line-height: 1.2;
             }
 
             .ph-auth__beneficio > div > span {
                 display: block;
-                font-size: clamp(13.5px, 1.75vh, 17px);
-                color: rgba(255, 255, 255, 0.8);
+                font-size: clamp(14px, min(1.85vh, 1.15vw), 22px);
+                line-height: 1.35;
+                color: rgba(255, 255, 255, 0.82);
+            }
+
+            /*
+             * Zona central: ocupa el espacio libre entre beneficios y estadisticas
+             * y centra en ella la frase emocional (flexbox, sin posiciones absolutas).
+             */
+            .ph-auth__centro {
+                display: flex;
+                flex: 1 1 auto;
+                align-items: center;
+                min-height: 0;
+                padding-block: clamp(8px, 1.2vh, 20px);
+            }
+
+            .ph-auth__lema {
+                display: flex;
+                flex-direction: column;
+                gap: clamp(8px, 1.2vh, 18px);
+                max-width: 24em;
+                font-size: clamp(21px, min(3.1vh, 2.1vw), 40px);
+                text-shadow: 0 2px 16px rgba(0, 40, 34, 0.55);
             }
 
             .ph-auth__stats {
                 display: grid;
                 grid-template-columns: repeat(3, minmax(0, 1fr));
                 width: 100%;
-                max-width: 690px;
+                max-width: clamp(600px, 36vw, 900px);
                 margin-top: auto;
-                padding: clamp(14px, 2.2vh, 22px) clamp(18px, 2vw, 30px);
-                border: 1px solid rgba(255, 255, 255, 0.12);
-                border-radius: clamp(22px, 3.4vh, 34px);
-                background: rgba(0, 72, 62, 0.62);
+                padding: clamp(14px, 1.9vh, 30px) clamp(18px, 2.2vw, 44px);
+                border: 1px solid rgba(168, 230, 163, 0.2);
+                border-radius: clamp(22px, 3.4vh, 40px);
+                background: rgba(7, 63, 54, 0.66);
                 backdrop-filter: blur(10px);
             }
 
             .ph-auth__stat + .ph-auth__stat {
-                padding-left: clamp(14px, 1.6vw, 26px);
+                padding-left: clamp(14px, 1.8vw, 34px);
                 border-left: 1px solid rgba(255, 255, 255, 0.22);
             }
 
@@ -211,13 +249,13 @@
 
             .ph-auth__stat-cifra svg {
                 flex: none;
-                width: clamp(28px, 4.2vh, 42px);
-                height: clamp(28px, 4.2vh, 42px);
+                width: clamp(28px, min(4vh, 2.3vw), 56px);
+                height: clamp(28px, min(4vh, 2.3vw), 56px);
                 color: var(--ph-verde-claro);
             }
 
             .ph-auth__stat-cifra strong {
-                font-size: clamp(28px, 4.3vh, 42px);
+                font-size: clamp(28px, min(4vh, 2.3vw), 56px);
                 font-weight: 700;
                 font-variant-numeric: lining-nums;
                 line-height: 1;
@@ -225,15 +263,29 @@
 
             .ph-auth__stat-titulo {
                 margin-top: 6px;
-                font-size: clamp(14px, 1.9vh, 18px);
+                font-size: clamp(14.5px, min(1.95vh, 1.1vw), 22px);
                 font-weight: 700;
                 line-height: 1.25;
             }
 
             .ph-auth__stat-detalle {
-                font-size: clamp(12px, 1.55vh, 15px);
+                font-size: clamp(12.5px, min(1.6vh, .95vw), 17px);
                 line-height: 1.3;
-                color: rgba(255, 255, 255, 0.8);
+                color: rgba(255, 255, 255, 0.82);
+            }
+
+            /* Pantallas de poca altura */
+            @media (max-height: 859px) {
+                .ph-auth__huellas,
+                .ph-auth__lema-sec {
+                    display: none;
+                }
+            }
+
+            @media (max-height: 639px) {
+                .ph-auth__lema {
+                    display: none;
+                }
             }
 
             /* ---------- Columna derecha ---------- */
@@ -324,13 +376,13 @@
 
                     <div class="ph-auth__marca">
                         <h1 class="pf-serif ph-auth__titulo">
-                            {{ __('Más que adopciones,') }}<br>
-                            {{ __('son') }} <em>{{ __('nuevas historias') }}</em><br>
+                            {{ __('Más que adopciones,') }}
+                            {{ __('son') }} <em>{{ __('nuevas historias') }}</em>
                             {{ __('por vivir.') }}
                         </h1>
 
-                        <p class="ph-auth__descripcion">
-                            {{ __('Conecta con fundaciones, adopta o apoya') }}<br>
+                        <p class="ph-auth__descripcion"><br>
+                            {{ __('Conecta con fundaciones, adopta o apoya') }}
                             {{ __('a los animales que más lo necesitan.') }}
                         </p>
 
@@ -357,6 +409,12 @@
                                 </div>
                             </li>
                         </ul>
+                    </div>
+
+                    {{-- Zona central: frase emocional que aprovecha el espacio libre. --}}
+                    <div class="ph-auth__centro">
+                        <div class="ph-auth__lema">
+                        </div>
                     </div>
 
                     <div class="ph-auth__stats">
